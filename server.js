@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const itemRoutes = require('./src/routers/aadharSearch.router');
 const sequelize = require('./src/config/database');
+const headerRoutes = require('./src/routers/headerInformation.route')
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/items', itemRoutes);
+app.use('/api',headerRoutes)
 
 const PORT = process.env.PORT || 5000;
 
