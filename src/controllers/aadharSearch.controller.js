@@ -143,6 +143,25 @@ const getIncomeFromRabhi = async (req,res) =>{
                                 }
     } 
 
+    const getMigrationDetails = async (req,res) =>{
+      try{
+          const  {id}  = req.query;
+          console.log('Search query name:', id);
+          const SelectMigrationDetails = `select * from public.migratestatus t1 where t1."headId" = :value`
+          const replacements = { value: id }; // Adjust this as per your need
+          const items = await sequelize.query(SelectMigrationDetails, {
+                                        replacements,
+                                        type: sequelize.QueryTypes.SELECT // Specify the type of query
+                                      });
+                                      res.status(200).json(items);
+                                  } catch (error) {
+                                    console.error('Error at Migration Details details executing query:', error);
+                                    res.status(500).json({ error: 'Internal Server Error' });
+                                  }
+      } 
+
+    
+
 
 const updateHouseHoldFamilyMembers = async (req,res) =>{
     try{
@@ -263,4 +282,5 @@ module.exports = { searchItems,
     updateLandParticulars,
     getIncomeFromKharif,
     getIncomeFromRabhi,
-    getLiveStockDetails};
+    getLiveStockDetails,
+    getMigrationDetails};
