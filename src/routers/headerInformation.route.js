@@ -9,4 +9,5 @@ router.get('/watershed',headInformationController.getWaterShedVillage)
 router.get('/habitation',headInformationController.getHabitaion)
 router.get('/mandal',headInformationController.getMandal)
 router.get('/grampanchayat',headInformationController.getGramPanchayat)
+router.post('/individualinformation',headInformationController.getIndividualInformation)
 module.exports=router;

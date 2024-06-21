@@ -1,6 +1,7 @@
-const  Item  = require('../models/aadharSearchItem.model');
+const  generalInfo  = require('../models/headerInformation.model');
 const { Op,DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const generalinfo = require('../models/headerInformation.model');
 
 const  getDistrict = async(req,res) => {
     try {
@@ -90,9 +91,39 @@ async function getGramPanchayat(req,res){
         const queryResult = await sequelize.query(gramPanchayatQuery,{replacements,
             type:sequelize.QueryTypes.SELECT})
         res.status(200).json(queryResult)
-        console.log("================================",queryResult)
     } catch (error) {
-        console.error("Error in getGramPanchayat function",error)
+        console.error("error in getGramPanchayat function",error)
     }
 }
-module.exports = {getDistrict,getWcc,getProject,getWaterShedVillage,getHabitaion,getMandal,getGramPanchayat}
+
+async function getIndividualInformation(req,res){
+    try {
+      const result = await generalinfo.create({
+        district:req.body.district,
+        wcc_name:req.body.wcc_name,
+        name_of_project:req.body.name_of_project,
+        name_of_the_micro_watershed:req.body.name_of_the_micro_watershed,
+        name_of_habitation:req.body.name_of_habitation,
+        mandal:req.body.mandal,
+        name_of_the_grampanchayat:req.body.name_of_the_grampanchayat,
+        head_of_the_family:req.body.head_of_the_family,
+        household_door_no:req.body.household_door_no,
+        conatact_number:req.body.conatact_number,
+        aadhar_number:req.body.aadhar_number,
+        job_card_no:req.body.job_card_no,
+        economic_status:req.body.economic_status,
+        occupation:req.body.occupation,
+        location:req.body.location,
+        social_status:req.body.social_status,
+        total_rainfed_area:req.body.total_rainfed_area,
+        total_irrigated_area:req.body.total_irrigated_area,
+        type_of_house:req.body.type_of_house,
+        own_or_rented:req.body.own_or_rented
+      })
+      return res.status(200).json(result)
+    } catch (error) {
+        console.error("error in getIndividualInformation function",error)
+    }
+}
+
+module.exports = {getDistrict,getWcc,getProject,getWaterShedVillage,getHabitaion,getMandal,getGramPanchayat,getIndividualInformation}
