@@ -4,9 +4,11 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const itemRoutes = require('./src/routers/aadharSearch.router');
 const sequelize = require('./src/config/database');
+
 const IncomeKharifRoute = require('./src/routers/incomecropsKharif.route')
 const IncomeRabhifRoute = require('./src/routers/incomecropsRabhi.route')
 const LiveStockRoute = require('./src/routers/liveStock.route')
+const headerRoutes = require('./src/routers/headerInformation.route')
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ app.use('/items', itemRoutes);
 app.use('/api',IncomeKharifRoute)
 app.use('/api',IncomeRabhifRoute)
 app.use('/api',LiveStockRoute)
+app.use('/api',headerRoutes)
 
 const PORT = process.env.PORT || 5000;
 
