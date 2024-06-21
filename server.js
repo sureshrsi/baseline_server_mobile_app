@@ -9,6 +9,10 @@ const IncomeKharifRoute = require('./src/routers/incomecropsKharif.route')
 const IncomeRabhifRoute = require('./src/routers/incomecropsRabhi.route')
 const LiveStockRoute = require('./src/routers/liveStock.route')
 const headerRoutes = require('./src/routers/headerInformation.route')
+const mitrateRoute = require('./src/routers/migrate.route')
+const landlessRoute = require('./src/routers/landless.route')
+const GovtBenefitRoute = require('./src/routers/govtbenefit.route')
+const ManureChemicalRoute = require('./src/routers/manure_chemical.route')
 
 dotenv.config();
 
@@ -21,6 +25,10 @@ app.use('/api',IncomeKharifRoute)
 app.use('/api',IncomeRabhifRoute)
 app.use('/api',LiveStockRoute)
 app.use('/api',headerRoutes)
+app.use('/api',mitrateRoute)
+app.use('/api',landlessRoute)
+app.use('/api',GovtBenefitRoute)
+app.use('/api',ManureChemicalRoute)
 
 const PORT = process.env.PORT || 5000;
 
