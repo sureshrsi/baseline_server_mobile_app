@@ -8,11 +8,12 @@ const sequelize = require('./src/config/database');
 const IncomeKharifRoute = require('./src/routers/incomecropsKharif.route')
 const IncomeRabhifRoute = require('./src/routers/incomecropsRabhi.route')
 const LiveStockRoute = require('./src/routers/liveStock.route')
-const headerRoutes = require('./src/routers/headerInformation.route')
-const mitrateRoute = require('./src/routers/migrate.route')
+const migrateRoute = require('./src/routers/migrate.route')
 const landlessRoute = require('./src/routers/landless.route')
 const GovtBenefitRoute = require('./src/routers/govtbenefit.route')
 const ManureChemicalRoute = require('./src/routers/manure_chemical.route')
+const headerRoutes = require('./src/routers/headerInformation.router');
+const householdRoutes = require('./src/routers/householdDetails.router');
 
 dotenv.config();
 
@@ -20,15 +21,17 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/items', itemRoutes);
+app.use('/items',itemRoutes);
 app.use('/api',IncomeKharifRoute)
 app.use('/api',IncomeRabhifRoute)
 app.use('/api',LiveStockRoute)
 app.use('/api',headerRoutes)
-app.use('/api',mitrateRoute)
+app.use('/api',migrateRoute)
 app.use('/api',landlessRoute)
 app.use('/api',GovtBenefitRoute)
 app.use('/api',ManureChemicalRoute)
+app.use('/api',headerRoutes);
+app.use('/api',householdRoutes);
 
 const PORT = process.env.PORT || 5000;
 
