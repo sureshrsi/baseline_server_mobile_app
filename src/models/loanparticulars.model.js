@@ -29,6 +29,9 @@ const LoanParticularDetails = sequelize.define('loanparticulars', {
       source_shg: {
         type: DataTypes.STRING
       },
+      other_source : {
+        type: DataTypes.STRING
+      },
       source_total: {
         type: DataTypes.STRING
       },
