@@ -47,5 +47,26 @@ const IncomeKharif = sequelize.define('incomecrops', {
   }, {
     tableName: 'incomecrops',
   });
+
+  const landparticulars = sequelize.define('landparticulars', {
+    
+    cultivated_area: {
+      type: DataTypes.STRING,
+    },
+    rainfed: {
+      type: DataTypes.STRING,
+    },
+    irrigated: {
+      type: DataTypes.STRING,
+    },
+    total: {
+      type: DataTypes.STRING,
+    },
+    Type_of_ownership: {
+      type: DataTypes.STRING,
+    },
+  }, {
+    tableName: 'landparticulars',
+  });
   
-  module.exports = IncomeKharif;
+  module.exports = {IncomeKharif,landparticulars}

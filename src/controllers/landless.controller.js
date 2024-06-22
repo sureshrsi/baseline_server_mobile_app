@@ -31,7 +31,7 @@ const getLandLessDetails = async (req,res) =>{
             wage_per_day: req.body.wage_per_day,
             income: req.body.income,
             });
-    
+        console.log("=================DATA===================",newLandLess)
         return res.status(201).json({
             status: 'success',
             data: newLandLess,

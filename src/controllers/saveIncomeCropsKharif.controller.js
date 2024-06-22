@@ -7,7 +7,7 @@ const createIncomeCrops = async (req, res, next) => {
     console.log(rows,'**************************');
 
      // Insert each row into the database using Sequelize
-     const newHouseholder = await IncomeKharif.create({
+     const newHouseholder = await IncomeKharif.IncomeKharif.create({
             crop_grown : req.body.crop_grown,
             rainfed_area : req.body.rainfed_area,
             rainfed_yield : req.body.rainfed_yield,
@@ -30,6 +30,27 @@ const createIncomeCrops = async (req, res, next) => {
     });
 };
 
+async function landParticularsData(req,res){
+  try {
+    const result = await IncomeKharif.landparticulars.create({
+      cultivated_area:req.body.cultivated_area,
+      rainfed:req.body.rainfed,
+      irrigated:req.body.irrigated,
+      total:req.body.total,
+      Type_of_ownership:req.body.Type_of_ownership
+    })
+    return res.status(200).json({
+      success:true,
+      data:result
+    })
+  } catch (error) {
+    console.error("error in landParticularsData function",error)
+    res.status(400).json({
+      success:false
+    })
+  }
+}
+
 
 const updateIncomeKharif = async (req, res) => {
     const { id } = req.params;
@@ -49,4 +70,4 @@ const updateIncomeKharif = async (req, res) => {
   };
 
 
-module.exports = {createIncomeCrops,updateIncomeKharif}
+module.exports = {createIncomeCrops,updateIncomeKharif,landParticularsData}
