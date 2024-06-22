@@ -28,9 +28,9 @@ const getPestDiseaseDetails = async (req,res) =>{
             headId: req.body.headId,
             crops: req.body.crops,
             name_of_the_pest_disease: req.body.name_of_the_pest_disease,
-            constrol_measures_biological: req.body.constrol_measures_biological,
-            constrol_measures_chemical: req.body.constrol_measures_chemical,
-            constrol_measures_others: req.body.constrol_measures_others,
+            control_measures_biological: req.body.control_measures_biological,
+            control_measures_chemical: req.body.control_measures_chemical,
+            control_measures_others: req.body.control_measures_others,
             amount_spent_material: req.body.amount_spent_material,
             amount_spent_wages: req.body.amount_spent_wages
             });
