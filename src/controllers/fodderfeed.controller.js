@@ -6,7 +6,7 @@ const getFodderFeedDetails = async (req,res) =>{
     try{
         const  {id}  = req.query;
         console.log('Search query name:', id);
-        const SelectFodderFeedDetails = `select * from public.horticulturedetails t1 where t1."headId" = :value`
+        const SelectFodderFeedDetails = `select * from public.fodderfeeddetails t1 where t1."headId" = :value`
         const replacements = { value: id }; // Adjust this as per your need
         const items = await sequelize.query(SelectFodderFeedDetails, {
                        replacements,
@@ -27,6 +27,7 @@ const getFodderFeedDetails = async (req,res) =>{
          const newFodderFeed = await FodderFeedDetails.create({
             headId: req.body.headId,
             fodderfeed_item: req.body.fodderfeed_item,
+            fodderfeed_units : req.body.fodderfeed_units,
             fodderfeed_area_quantity: req.body.fodderfeed_area_quantity,
             fodderfeed_production: req.body.fodderfeed_production
             });

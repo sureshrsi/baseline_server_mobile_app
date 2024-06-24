@@ -26,10 +26,8 @@ const getHorticultureDetails = async (req,res) =>{
          // Insert each row into the database using Sequelize
          const newHorticulture = await HorticultureDetails.create({
             headId: req.body.headId,
-            water_source: req.body.water_source,
-            implements: req.body.implements,
-            no_of_implements: req.body.no_of_implements,
-            implements_ownerd_hired: req.body.implements_ownerd_hired
+            horticulture_details: req.body.horticulture_details,
+            horticulture_number: req.body.horticulture_number
             });
     
         return res.status(201).json({
