@@ -26,7 +26,6 @@ const getAgriImplementsDetails = async (req,res) =>{
          // Insert each row into the database using Sequelize
          const newAgriImplements = await AgriImplementsDetails.create({
             headId: req.body.headId,
-            water_source: req.body.water_source,
             implements: req.body.implements,
             no_of_implements: req.body.no_of_implements,
             implements_ownerd_hired: req.body.implements_ownerd_hired
@@ -47,7 +46,7 @@ const getAgriImplementsDetails = async (req,res) =>{
           });
           if (updated) {
             const updatedAgriImplements = await AgriImplementsDetails.findOne({ where: { id: id } });
-            res.status(200).json(updatedSourceQualityWater);
+            res.status(200).json(updatedAgriImplements);
           } else {
             res.status(404).json({ message: 'Record not found' });
           }

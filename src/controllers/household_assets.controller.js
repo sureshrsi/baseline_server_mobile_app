@@ -26,14 +26,14 @@ const getHouseholdAssetsDetails = async (req,res) =>{
          // Insert each row into the database using Sequelize
          const newHouseholdAssets = await HouseholdAssetsDetails.create({
             headId: req.body.headId,
-            grazing_of_cattle_or_animal: req.body.grazing_of_cattle_or_animal,
-            number_of_animals: req.body.number_of_animals,
-            how_many_days_in_the_year: req.body.how_many_days_in_the_year
+            assets: req.body.assets,
+            number: req.body.number,
+            present_value: req.body.present_value
             });
     
         return res.status(201).json({
             status: 'success',
-            data: newFodderFuel,
+            data: newHouseholdAssets,
         });
     };
     

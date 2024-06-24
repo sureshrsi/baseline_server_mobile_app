@@ -6,9 +6,9 @@ const getDrinkingWaterDetails = async (req,res) =>{
     try{
         const  {id}  = req.query;
         console.log('Search query name:', id);
-        const SelectDrinkingWaterDetails = `select * from public.different_source_income t1 where t1."headId" = :value`
+        const SelectDrinkingWaterDetails = `select * from public.availabledrinkingwater t1 where t1."headId" = :value`
         const replacements = { value: id }; // Adjust this as per your need
-        const items = await sequelize.query(SelectDifferentSourceIncomeDetails, {
+        const items = await sequelize.query(SelectDrinkingWaterDetails, {
                        replacements,
                        type: sequelize.QueryTypes.SELECT // Specify the type of query
                      });
