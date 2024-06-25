@@ -26,9 +26,11 @@ const GrazeCattleCommunityRoute = require('./src/routers/graze.cattle.community.
 const HouseholdAssetsRoute = require('./src/routers/household_assets.route')
 const ParticipationCommunityProgramRoute = require('./src/routers/participation_community_program.route')
 const AwarenessAdoptionTechnologyRoute = require('./src/routers/awareness_adoption_technology.route')
-const MembershipRoute = require('./src/routers/manure_chemical.route')
+const MembershipRoute = require('./src/routers/membership.route')
 const AnySchemePreviousProjectRoute = require('./src/routers/any_scheme_previous_project.route')
 const AwareWatershedSoilLandStatusRoute = require('./src/routers/aware_watershed_status.route')
+const HaveReceivedTrainingWatershedSoilLandStatusRoute = require('./src/routers/have_received_training_watershed_status.route')
+
 const headerRoutes = require('./src/routers/headerInformation.router');
 const householdRoutes = require('./src/routers/householdDetails.router');
 
@@ -64,6 +66,7 @@ app.use('/api',AwarenessAdoptionTechnologyRoute)
 app.use('/api',MembershipRoute)
 app.use('/api',AnySchemePreviousProjectRoute)
 app.use('/api',AwareWatershedSoilLandStatusRoute)
+app.use('/api',HaveReceivedTrainingWatershedSoilLandStatusRoute)
 
 app.use('/api',headerRoutes);
 app.use('/api',householdRoutes);

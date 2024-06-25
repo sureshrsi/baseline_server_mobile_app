@@ -6,7 +6,7 @@ const getAwarenessAdoptionTechnologyDetails = async (req,res) =>{
     try{
         const  {id}  = req.query;
         console.log('Search query name:', id);
-        const SelectAwarenessAdoptionTechnologyDetails = `select * from public.participation_community_program t1 where t1."headId" = :value`
+        const SelectAwarenessAdoptionTechnologyDetails = `select * from public.awareness_adoption_technology t1 where t1."headId" = :value`
         const replacements = { value: id }; // Adjust this as per your need
         const items = await sequelize.query(SelectAwarenessAdoptionTechnologyDetails, {
                        replacements,
@@ -26,9 +26,8 @@ const getAwarenessAdoptionTechnologyDetails = async (req,res) =>{
          // Insert each row into the database using Sequelize
          const newAwarenessAdoptionTechnology = await AwarenessAdoptionTechnologyDetails.create({
             headId: req.body.headId,
-            name_of_the_community_program: req.body.name_of_the_community_program,
-            tick_mark_appropriate: req.body.tick_mark_appropriate,
-            yes_or_no: req.body.yes_or_no
+            technology: req.body.technology,
+            source_of_information: req.body.source_of_information
             });
     
         return res.status(201).json({
