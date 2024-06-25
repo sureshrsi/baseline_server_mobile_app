@@ -1,6 +1,6 @@
 const sequelize = require('../config/database');
 const { Op,DataTypes } = require('sequelize');
-const ReceivedWatershedSoilLandStatusDetails = require('../models/aware_watershed_status.model');
+const ReceivedWatershedSoilLandStatusDetails = require('../models/have_received_training_watershed_status.model');
 
 const getReceivedWatershedSoilLandStatusDetails = async (req,res) =>{
     try{
