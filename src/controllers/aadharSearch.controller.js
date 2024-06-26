@@ -24,11 +24,44 @@ const searchItems = async (req, res) => {
     }
 };
 
+
+const searchProject = async (req,res) =>{
+  try{
+const { query } = req.query;
+console.log('Search query name:', query);
+const SelectProjectInfo = `SELECT t1.id as id,
+                          t1.project_name from
+                          project t1
+                          where t1.project_name ILIKE :value`
+const replacements = { value: `%${query}%` }; // Adjust this as per your need
+const items = await sequelize.query(SelectProjectInfo, {
+                            replacements,
+                            type: sequelize.QueryTypes.SELECT // Specify the type of query
+                          });
+                          res.status(200).json(items);
+                      } catch (error) {
+                        console.error('Error executing query:', error);
+                        res.status(500).json({ error: 'Internal Server Error' });
+                      }
+  }
+
 const searchName = async (req,res) =>{
     try{
 const { query } = req.query;
 console.log('Search query name:', query);
-const SelectGeneralInfo = `SELECT t1.id as id,t1.head_of_the_family as head_of_the_family,t1.household_door_no as household_door_no,
+const SelectGeneralInfo = `SELECT t1.id as id,
+                            t6.dist_name,
+                            t6.dist_id,
+                            t5.wcc_name,
+                            t5.wcc_id,
+                            t4.project_name,
+                            t4.project_id,
+                            t3.micro_watershed_name,
+                            t3.micro_watershed_id,
+                            t2.habitation_name,
+                            t2.habitation_id,
+                            t1.head_of_the_family as head_of_the_family,
+                            t1.household_door_no as household_door_no,
                             t1.conatact_number as contact_number,
                             t1.aadhar_number,t1.job_card_no,
                             t1.economic_status,
@@ -42,8 +75,10 @@ const SelectGeneralInfo = `SELECT t1.id as id,t1.head_of_the_family as head_of_t
                              FROM 
                             generalinfo t1
                             INNER JOIN habitation t2 ON t1."habitationId"= t2.id 
-                            INNER JOIN microwatershed t3
-                            on t2.micro_watershed_id = t3.micro_watershed_id
+                            INNER JOIN microwatershed t3 on t2.micro_watershed_id = t3.micro_watershed_id
+                            INNER JOIN public.project t4 on t3.project_id = t4.project_id
+                            INNER JOIN public.wcc t5 on t4.wcc_id = t5.wcc_id
+                            INNER JOIN public.district t6 on t5.dist_id= t6.dist_id
                             where t1.head_of_the_family ILIKE :value`
 const replacements = { value: `%${query}%` }; // Adjust this as per your need
 const items = await sequelize.query(SelectGeneralInfo, {
@@ -275,6 +310,7 @@ const updateItem = async (req, res) => {
 
 module.exports = { searchItems,
     updateItem ,
+    searchProject,
     searchName,
     getHouseHoldInfo,
     updateHouseHoldFamilyMembers,

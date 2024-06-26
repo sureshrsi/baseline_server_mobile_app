@@ -3,6 +3,7 @@ const aadharController = require('../controllers/aadharSearch.controller');
 const router = express.Router();
 
 router.get('/search', aadharController.searchItems);
+router.get('/searchByProject', aadharController.searchProject);
 router.get('/searchByName', aadharController.searchName);
 router.put('updateitems/:id', aadharController.updateItem); // Add this line for the update route
 router.get('/householdinfo', aadharController.getHouseHoldInfo);
