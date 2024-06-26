@@ -27,7 +27,6 @@ const getAwareWatershedSoilLandStatusDetails = async (req,res) =>{
          const newAwareWatershedSoilLandStatusDetails = await AwareWatershedSoilLandStatusDetails.create({
             headId: req.body.headId,
             status: req.body.status
-            
             });
     
         return res.status(201).json({
@@ -40,8 +39,9 @@ const getAwareWatershedSoilLandStatusDetails = async (req,res) =>{
     const updateAwareWatershedSoilLandStatusDetails = async (req, res) => {
         const { id } = req.params;
         try {
-          const [updated] = await AwareWatershedSoilLandStatusDetails.update(req.body, {
-            where: { id: id },
+          const [updated] = await AwareWatershedSoilLandStatusDetails.update({ headId: req.body.headId,
+            status: req.body.status}, {
+            where: { headId: id },
           });
           if (updated) {
             const updatedAwareWatershedSoilLandStatusDetails = await AwareWatershedSoilLandStatusDetails.findOne({ where: { id: id } });

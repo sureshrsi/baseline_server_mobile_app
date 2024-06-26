@@ -40,8 +40,11 @@ const getReceivedWatershedSoilLandStatusDetails = async (req,res) =>{
     const updateReceivedWatershedSoilLandStatusDetails = async (req, res) => {
         const { id } = req.params;
         try {
-          const [updated] = await ReceivedWatershedSoilLandStatusDetails.update(req.body, {
-            where: { id: id },
+          const [updated] = await ReceivedWatershedSoilLandStatusDetails.update({
+            headId: req.body.headId,
+            status: req.body.status
+            }, {
+            where: { headId: id },
           });
           if (updated) {
             const updatedReceivedWatershedSoilLandStatusDetails = await ReceivedWatershedSoilLandStatusDetails.findOne({ where: { id: id } });

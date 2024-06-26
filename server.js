@@ -30,6 +30,7 @@ const MembershipRoute = require('./src/routers/membership.route')
 const AnySchemePreviousProjectRoute = require('./src/routers/any_scheme_previous_project.route')
 const AwareWatershedSoilLandStatusRoute = require('./src/routers/aware_watershed_status.route')
 const HaveReceivedTrainingWatershedSoilLandStatusRoute = require('./src/routers/have_received_training_watershed_status.route')
+const DateServeyorNameRoute =require('./src/routers/conclude_date_name.route')
 
 const headerRoutes = require('./src/routers/headerInformation.router');
 const householdRoutes = require('./src/routers/householdDetails.router');
@@ -67,6 +68,7 @@ app.use('/api',MembershipRoute)
 app.use('/api',AnySchemePreviousProjectRoute)
 app.use('/api',AwareWatershedSoilLandStatusRoute)
 app.use('/api',HaveReceivedTrainingWatershedSoilLandStatusRoute)
+app.use('/api',DateServeyorNameRoute)
 
 app.use('/api',headerRoutes);
 app.use('/api',householdRoutes);
