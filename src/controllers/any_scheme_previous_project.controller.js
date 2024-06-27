@@ -36,6 +36,24 @@ const getAnySchemePreviousProjectDetails = async (req,res) =>{
             data: newAnySchemePreviousProjectDetails
         });
     };
+
+    const bulkInsertionSchemeProjectDetails = async(req,res) => {
+      const bulkInsertionSchemeRows = req.body.rows
+      const insertionSchemeRows = await Promise.all(bulkInsertionSchemeRows.map(async(insertion)=>
+      {
+        return await AnySchemePreviousProjectDetails.create({
+          headId: insertion.headId,
+          name_of_the_scheme_or_project: insertion.name_of_the_scheme_or_project,
+          details_of_benefits_obtained:insertion.details_of_benefits_obtained,
+          value_of_the_benefit: insertion.value_of_the_benefit
+        });
+      }
+      ));
+      res.status(200).json({
+        success : true,
+        data : insertionSchemeRows
+      })
+    }
     
     
     const updateAnySchemePreviousProjectDetails = async (req, res) => {
@@ -56,4 +74,4 @@ const getAnySchemePreviousProjectDetails = async (req,res) =>{
       };
 
 
-module.exports = {getAnySchemePreviousProjectDetails,insertAnySchemePreviousProjectDetails,updateAnySchemePreviousProjectDetails}
+module.exports = {getAnySchemePreviousProjectDetails,insertAnySchemePreviousProjectDetails,updateAnySchemePreviousProjectDetails,bulkInsertionSchemeProjectDetails}

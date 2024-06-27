@@ -37,6 +37,21 @@ const getAgriImplementsDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionAgriImplements = async(req,res) => {
+      const agriImplementRows = req.body.rows
+      const newBulkInsertion = await Promise.all(agriImplementRows.map(async(agri) => {
+        return await AgriImplementsDetails.create({
+          headId: agri.headId,
+          implements: agri.implements,
+          no_of_implements: agri.no_of_implements,
+          implements_ownerd_hired: agri.implements_ownerd_hired
+        });
+      }));
+      res.status(200).json({
+        success : true,
+        data : newBulkInsertion
+      })
+    }
     
     const updateAgriImplementsDetails = async (req, res) => {
         const { id } = req.params;
@@ -56,4 +71,4 @@ const getAgriImplementsDetails = async (req,res) =>{
       };
 
 
-module.exports = {getAgriImplementsDetails,insertAgriImplementsDetails,updateAgriImplementsDetails}
+module.exports = {getAgriImplementsDetails,insertAgriImplementsDetails,updateAgriImplementsDetails,bulkInsertionAgriImplements}

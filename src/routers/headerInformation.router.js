@@ -10,4 +10,5 @@ router.get('/habitation',headInformationController.getHabitaion)
 router.get('/mandal',headInformationController.getMandal)
 router.get('/grampanchayat',headInformationController.getGramPanchayat)
 router.post('/individualinformation',headInformationController.getIndividualInformation)
+router.put('/updateIndividualInfo/:id',headInformationController.updateHeaderInformation)
 module.exports=router;
