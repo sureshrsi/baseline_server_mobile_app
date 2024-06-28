@@ -3,5 +3,5 @@ const householdDetailsController = require('../controllers/householdDetails.cont
 const router = express.Router();
 
 router.post('/householdDetails',householdDetailsController.insertHouseholdDetails)
-
+router.post('/bulkinsertionhouseholddetails',householdDetailsController.bulkInsertionHouseholdMembers)
 module.exports = router

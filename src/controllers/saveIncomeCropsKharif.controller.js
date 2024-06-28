@@ -30,6 +30,40 @@ const createIncomeCrops = async (req, res, next) => {
     });
 };
 
+const bulkInsertionIncomeCrops = async(req,res) =>{
+  try {
+    const incomeCropsRows = req.body.rows
+    const result = await Promise.all(incomeCropsRows.map(async(data)=>{
+      return await IncomeKharif.IncomeKharif.create({
+        crop_grown : data.crop_grown,
+        rainfed_area : data.rainfed_area,
+        rainfed_yield : data.rainfed_yield,
+        rainfed_cost_of_cultivation : data.rainfed_cost_of_cultivation,
+        rainfed_rate_per_qtls : data.rainfed_rate_per_qtls,
+        rainfed_gross_income : data.rainfed_gross_income,
+        rainfed_net_income : data.rainfed_net_income,
+        irrigated_area : data.irrigated_area,
+        irrigated_yield : data.irrigated_yield,
+        irrigated_cost_of_cultivation : data.irrigated_cost_of_cultivation,
+        irrigated_rate_per_qtls : data.irrigated_rate_per_qtls,
+        irrigated_gross_income : data.irrigated_gross_income,
+        irrigated_net_income : data.irrigated_net_income,
+        headId : data.headId
+      })
+    }))
+    res.status(200).json({
+      success:true,
+      data:result
+    })
+  } catch (error) {
+    console.error("error in bulkInsertionIncomeCrops function",error)
+    res.status(400).json({
+      success:false,
+      data:error
+    })
+  }
+}
+
 async function landParticularsData(req,res){
   try {
     const result = await IncomeKharif.landparticulars.create({
@@ -51,6 +85,30 @@ async function landParticularsData(req,res){
   }
 }
 
+const bulkInsertionLandParticulars = async(req,res) =>{
+  try {
+    const landParticularsRows = req.body.rows
+    const result = await Promise.all(landParticularsRows.map(async(data)=>{
+      return await IncomeKharif.landparticulars.create({
+        cultivated_area:data.cultivated_area,
+        rainfed:data.rainfed,
+        irrigated:data.irrigated,
+        total:data.total,
+        Type_of_ownership:data.Type_of_ownership
+      })
+    }))
+    res.status(200).json({
+      success:true,
+      data:result
+    })
+  } catch (error) {
+    console.error("error in bulkInsertionLandParticulars fucntion",error)
+    res.status(400).json({
+      success:false,
+      data:error
+    })
+  }
+}
 
 const updateIncomeKharif = async (req, res) => {
     const { id } = req.params;
@@ -70,4 +128,4 @@ const updateIncomeKharif = async (req, res) => {
   };
 
 
-module.exports = {createIncomeCrops,updateIncomeKharif,landParticularsData}
+module.exports = {createIncomeCrops,bulkInsertionLandParticulars,updateIncomeKharif,bulkInsertionIncomeCrops,landParticularsData}

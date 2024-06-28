@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/landlessdetails',createLandLessController.getLandLessDetails)
 router.post('/insertlandlessdetails',createLandLessController.insertLandLess)
 router.put('/updatelandlessdetails/:id',createLandLessController.updateLandLess)
-
+router.post('/bulkinsertionlandless',createLandLessController.bulkInsertionLandless)
 module.exports = router

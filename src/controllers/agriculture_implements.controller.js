@@ -38,6 +38,8 @@ const getAgriImplementsDetails = async (req,res) =>{
     };
     
     const bulkInsertionAgriImplements = async(req,res) => {
+      try{
+        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
       const agriImplementRows = req.body.rows
       const newBulkInsertion = await Promise.all(agriImplementRows.map(async(agri) => {
         return await AgriImplementsDetails.create({
@@ -51,6 +53,10 @@ const getAgriImplementsDetails = async (req,res) =>{
         success : true,
         data : newBulkInsertion
       })
+    }
+    catch(error){
+      console.error("error in bulkInsertionAgriImplements function",error)
+    }
     }
     
     const updateAgriImplementsDetails = async (req, res) => {

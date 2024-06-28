@@ -20,7 +20,7 @@ const getHorticultureDetails = async (req,res) =>{
     } 
 
 
-    const insertHorticultureDetails = async (req, res, next) => {
+    const insertHorticultureDetails = async (req, res) => {
     
     
          // Insert each row into the database using Sequelize
@@ -35,6 +35,29 @@ const getHorticultureDetails = async (req,res) =>{
             data: newHorticulture,
         });
     };
+
+    const bulkInsertionHorticulture = async(req,res) => {
+      try {
+        const horticultureRows = req.body.rows
+        const horticultureRowsData = await Promise.all(horticultureRows.map(async(horticulture)=>{
+          return await HorticultureDetails.create({
+            headId: horticulture.headId,
+            horticulture_details: horticulture.horticulture_details,
+            horticulture_number: horticulture.horticulture_number
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:horticultureRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionHorticulture function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateHorticultureDetails = async (req, res) => {
@@ -55,4 +78,4 @@ const getHorticultureDetails = async (req,res) =>{
       };
 
 
-module.exports = {getHorticultureDetails,insertHorticultureDetails,updateHorticultureDetails}
+module.exports = {getHorticultureDetails,bulkInsertionHorticulture,insertHorticultureDetails,updateHorticultureDetails}

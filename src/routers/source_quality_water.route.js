@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/sourcequalitywaterdetails',createSourceQualityWaterController.getSourceQualityWaterDetails)
 router.post('/insertsourcequalitywater',createSourceQualityWaterController.insertSourceQualityWater)
 router.put('/updatesourcequalitywater/:id',createSourceQualityWaterController.updateSourceQualityWater)
-
+router.post('/bulkinsertionwater',createSourceQualityWaterController.bulkInsertionSourceQuality)
 module.exports = router

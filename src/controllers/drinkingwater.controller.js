@@ -37,6 +37,32 @@ const getDrinkingWaterDetails = async (req,res) =>{
             data: newDrinkingWater,
         });
     };
+
+    const bulkInsertionDrinkingWater = async(req,res) =>{
+      try {
+        const drinkingWaterRows =req.body.rows
+        const drinkingWaterData = await Promise.all(drinkingWaterRows.map(async(water)=>
+        {
+          return await DrinkingWaterDetails.create({
+            headId: water.headId,
+            drinkingwater_item: water.drinkingwater_item,
+            drinkingwater_units: water.drinkingwater_units,
+            drinking_quantity: water.drinking_quantity,
+            source_of_drinking_water: water.source_of_drinking_water
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:drinkingWaterData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionDrinkingWater function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateDrinkingWater = async (req, res) => {
@@ -57,4 +83,4 @@ const getDrinkingWaterDetails = async (req,res) =>{
       };
 
 
-module.exports = {getDrinkingWaterDetails,insertDrinkingWater,updateDrinkingWater}
+module.exports = {getDrinkingWaterDetails,bulkInsertionDrinkingWater,insertDrinkingWater,updateDrinkingWater}

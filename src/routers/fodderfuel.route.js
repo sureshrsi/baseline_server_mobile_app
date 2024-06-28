@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/fodderfueldetails',createFodderFuelController.getFodderFuelDetails)
 router.post('/insertfodderfuel',createFodderFuelController.insertFodderFuelDetails)
 router.put('/updatefodderfuel/:id',createFodderFuelController.updateFodderFuelDetails)
-
+router.post('/bulkinsertionfuel',createFodderFuelController.fodderFuelDetails)
 module.exports = router
