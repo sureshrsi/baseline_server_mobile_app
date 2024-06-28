@@ -38,6 +38,32 @@ const getFodderFuelDetails = async (req,res) =>{
             data: newFodderFuel,
         });
     };
+
+    const fodderFuelDetails = async(req,res) => {
+      try {
+        const fodderFuelDetailsRows = req.body.rows
+        const fodderFuelDetailsData = await Promise.all(fodderFuelDetailsRows.map(async(details)=>{
+          return await FodderFuelDetails.create({
+            headId: details.headId,
+            foldder_details: details.foldder_details,
+            fodder_utilisation: details.fodder_utilisation,
+            cow_dung: details.cow_dung,
+            fire_wood: details.fire_wood,
+            agriculture_waste: details.agriculture_waste
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:fodderFuelDetailsData
+        })
+      } catch (error) {
+        console.error("error in fodderFuelDetails function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateFodderFuelDetails = async (req, res) => {
@@ -58,4 +84,4 @@ const getFodderFuelDetails = async (req,res) =>{
       };
 
 
-module.exports = {getFodderFuelDetails,insertFodderFuelDetails,updateFodderFuelDetails}
+module.exports = {getFodderFuelDetails,fodderFuelDetails,insertFodderFuelDetails,updateFodderFuelDetails}

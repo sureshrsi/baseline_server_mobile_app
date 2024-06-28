@@ -5,5 +5,6 @@ const router = express.Router();
 router.get('/agricultureimplementsdetails',createAgriImplementsController.getAgriImplementsDetails)
 router.post('/insertagricultureimplements',createAgriImplementsController.insertAgriImplementsDetails)
 router.put('/updateagricultureimplements/:id',createAgriImplementsController.updateAgriImplementsDetails)
+router.post('/bulkinsertionagriimplements',createAgriImplementsController.bulkInsertionAgriImplements)
 
 module.exports = router

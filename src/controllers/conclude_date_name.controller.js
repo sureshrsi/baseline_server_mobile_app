@@ -35,6 +35,30 @@ const getDateServeyorName_Details = async (req,res) =>{
             data: newDateServeyorName_Details
         });
     };
+
+    const bulkInsertionConcludeDateName = async(req,res) =>{
+      try {
+        const concludeDateNameRows = req.body.rows
+        const concludeDateNameData = await Promise.all(concludeDateNameRows.map(async(conclude)=>
+        {
+          return await DateServeyorName_Details.create({
+            headId: conclude.headId,
+            date: conclude.date,
+            serveyor_name: conclude.serveyor_name,
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:concludeDateNameData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionConcludeDateName fucntion",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateDateServeyorName_Details = async (req, res) => {
@@ -59,4 +83,4 @@ const getDateServeyorName_Details = async (req,res) =>{
       };
 
 
-module.exports = {getDateServeyorName_Details,insertDateServeyorName_Details,updateDateServeyorName_Details}
+module.exports = {getDateServeyorName_Details,bulkInsertionConcludeDateName,insertDateServeyorName_Details,updateDateServeyorName_Details}

@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/participationcommunityprogramdetails',createParticipatonCommunityController.getParticipationCommunityProgramDetails)
 router.post('/insertparticipationcommunityprogram',createParticipatonCommunityController.insertParticipationCommunityProgramDetails)
 router.put('/updateparticipationcommunityprogram/:id',createParticipatonCommunityController.updateParticipationCommunityProgramDetails)
-
+router.post('/bulkinsertionprogram',createParticipatonCommunityController.bulkInsertionCommunityProgram)
 module.exports = router

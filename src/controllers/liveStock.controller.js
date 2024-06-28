@@ -43,28 +43,32 @@ const updateLiveStock = async (req, res) => {
   };
 
   const bulkInsertionLivestock = async (req, res) => {
-    
-    const livestockRows = req.body.rows; 
-
-     // Insert each row into the database using Sequelize
-    //  const insertedUsers = await LiveStockDetails.bulkCreate(livestockRows);
-    const insertedUsers = await Promise.all(livestockRows.map(async (liveStock) => {
-      return await LiveStockDetails.create({
-        // headId: liveStock.headId,
-        existing_no: liveStock.existing_no,
-        income_generated_during_last_year:
-        liveStock.income_generated_during_last_year,
-        milk_production:liveStock.milk_production,
-        milk_quantity_sold: liveStock.milk_quantity_sold,
-        mill_consumed: liveStock.mill_consumed,
-        name_of_the_animal: liveStock.name_of_the_animal,
-        value_of_animals: liveStock.value_of_animals,
-      });
-    }));
-    return res.status(201).json({
-        status: 'success',
-        data: insertedUsers,
-    });
+    try {
+      const livestockRows = req.body.rows; 
+     const insertedUsers = await Promise.all(livestockRows.map(async (liveStock) => {
+       return await LiveStockDetails.create({
+         // headId: liveStock.headId,
+         existing_no: liveStock.existing_no,
+         income_generated_during_last_year:
+         liveStock.income_generated_during_last_year,
+         milk_production:liveStock.milk_production,
+         milk_quantity_sold: liveStock.milk_quantity_sold,
+         mill_consumed: liveStock.mill_consumed,
+         name_of_the_animal: liveStock.name_of_the_animal,
+         value_of_animals: liveStock.value_of_animals,
+       });
+     }));
+     return res.status(201).json({
+         status: 'success',
+         data: insertedUsers,
+     });
+    } catch (error) {
+      console.error("error in bulkInsertionLivestock function",error)
+      res.status(400).json({
+        success:false,
+        data:error
+      })
+    }
 };
 
 module.exports = {insertLiveStock,updateLiveStock,bulkInsertionLivestock}

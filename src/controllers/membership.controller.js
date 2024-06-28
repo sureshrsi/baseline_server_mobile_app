@@ -35,6 +35,29 @@ const getMembershipDetails = async (req,res) =>{
             data: newMembershipDetails
         });
     };
+
+    const bulkInsertionMambership = async(req,res) => {
+      try {
+        const membershipRows = req.body.rows
+        const membershipRowsData = await Promise.all(membershipRows.map(async(data)=>{
+          return await MembershipDetails.create({
+            headId: data.headId,
+            membershp_details: data.membershp_details,
+            number: data.number
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:membershipRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionMambership function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateMembershipDetails = async (req, res) => {
@@ -55,4 +78,4 @@ const getMembershipDetails = async (req,res) =>{
       };
 
 
-module.exports = {getMembershipDetails,insertMembershipDetails,updateMembershipDetails}
+module.exports = {getMembershipDetails,bulkInsertionMambership,insertMembershipDetails,updateMembershipDetails}

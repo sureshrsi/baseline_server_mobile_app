@@ -40,6 +40,34 @@ const getManureChemicalDetails = async (req,res) =>{
             data: newManureChemical,
         });
     };
+
+    const bulkInsertionManureChemical = async(req,res) => {
+      try {
+        const manureChemicalRows = req.body.rows
+        const manureChemicalRowsData = await Promise.all(manureChemicalRows.map(async(data)=>{
+          return await ManureChemicalDetails.create({
+            headId: data.headId,
+            crops: data.crops,
+            organic: data.organic,
+            micro_nutrients: data.micro_nutrients,
+            chemical_N: data.chemical_N,
+            chemical_P: data.chemical_P,
+            chemical_K: data.chemical_K,
+            cost: data.cost
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:manureChemicalRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionManureChemical function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateManureChemical = async (req, res) => {
@@ -60,4 +88,4 @@ const getManureChemicalDetails = async (req,res) =>{
       };
 
 
-module.exports = {getManureChemicalDetails,insertManureChemical,updateManureChemical}
+module.exports = {getManureChemicalDetails,bulkInsertionManureChemical,insertManureChemical,updateManureChemical}

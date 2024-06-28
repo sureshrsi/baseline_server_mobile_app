@@ -14,9 +14,9 @@ const FodderFeedDetails = sequelize.define('fodderfeeddetails', {
       fodderfeed_item : {
         type: DataTypes.STRING
       },
-      fodderfeed_units: {
-        type: DataTypes.STRING
-      },
+      // fodderfeed_units: {
+      //   type: DataTypes.STRING
+      // },
       fodderfeed_area_quantity: {
         type: DataTypes.STRING
       },

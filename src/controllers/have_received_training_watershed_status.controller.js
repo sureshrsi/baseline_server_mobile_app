@@ -35,7 +35,28 @@ const getReceivedWatershedSoilLandStatusDetails = async (req,res) =>{
             data: newReceivedWatershedSoilLandStatusDetails
         });
     };
-    
+
+    const bulkInsertionTrainingWatershed =async(req,res) =>{
+      try {
+        const trainingWatershedRows = req.body.rows
+        const trainingWatershedRowsData = await Promise.all(trainingWatershedRows.map(async(training)=>{
+          return await ReceivedWatershedSoilLandStatusDetails.create({
+            headId: training.headId,
+            status: training.status
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:trainingWatershedRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionTrainWatershed function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }    
     
     const updateReceivedWatershedSoilLandStatusDetails = async (req, res) => {
         const { id } = req.params;
@@ -58,4 +79,4 @@ const getReceivedWatershedSoilLandStatusDetails = async (req,res) =>{
       };
 
 
-module.exports = {getReceivedWatershedSoilLandStatusDetails,insertReceivedWatershedSoilLandStatusDetails,updateReceivedWatershedSoilLandStatusDetails}
+module.exports = {getReceivedWatershedSoilLandStatusDetails,bulkInsertionTrainingWatershed,insertReceivedWatershedSoilLandStatusDetails,updateReceivedWatershedSoilLandStatusDetails}

@@ -37,6 +37,29 @@ const getHouseholdAssetsDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionHouseholdAsset = async(req,res) => {
+      try {
+        const householdAssetRows = req.body.rows
+        const householdAssetRowsData = await Promise.all(householdAssetRows.map(async(asset)=>{
+          return await HouseholdAssetsDetails.create({
+            headId: asset.headId,
+            assets: asset.assets,
+            number: asset.number,
+            present_value: asset.present_value
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:householdAssetRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionHouseholdAsset fucntion",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     const updateHouseholdAssetsDetails = async (req, res) => {
         const { id } = req.params;
@@ -56,4 +79,4 @@ const getHouseholdAssetsDetails = async (req,res) =>{
       };
 
 
-module.exports = {getHouseholdAssetsDetails,insertHouseholdAssetsDetails,updateHouseholdAssetsDetails}
+module.exports = {getHouseholdAssetsDetails,bulkInsertionHouseholdAsset,insertHouseholdAssetsDetails,updateHouseholdAssetsDetails}

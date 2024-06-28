@@ -36,6 +36,30 @@ const getGovtBenefitsDetails = async (req,res) =>{
             data: newGovtBenefit,
         });
     };
+
+    const bulkInsertionGovtBenefits = async(req,res) =>{
+      try {
+        const govtBenefitsRows = req.body.rows
+        const govtBenefitsRowsData = await Promise.all(govtBenefitsRows.map(async(govt)=>{
+          return await GovtSchemes.create({
+            headId: govt.headId,
+            name_of_familymember: govt.name_of_familymember,
+            scheme_name: govt.scheme_name,
+            amount: govt.amount
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:govtBenefitsRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionGovtBenefits function",error)
+        req.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateGovtBenefits = async (req, res) => {
@@ -56,4 +80,4 @@ const getGovtBenefitsDetails = async (req,res) =>{
       };
 
 
-module.exports = {getGovtBenefitsDetails,insertGovtBenefits,updateGovtBenefits}
+module.exports = {getGovtBenefitsDetails,bulkInsertionGovtBenefits,insertGovtBenefits,updateGovtBenefits}

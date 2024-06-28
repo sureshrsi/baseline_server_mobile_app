@@ -30,6 +30,39 @@ const insertIncomeCropsRabhi = async (req, res, next) => {
     });
 };
 
+const bulkInsertionCropsRabi = async(req,res) => {
+  try {
+    const cropsRabiRows = req.body.rows
+    const result = await Promise.all(cropsRabiRows.map(async(data)=>{
+      return await IncomeRabhi.create({
+            crop_grown :data.crop_grown,
+            rainfed_area :data.rainfed_area,
+            rainfed_yield :data.rainfed_yield,
+            rainfed_cost_of_cultivation :data.rainfed_cost_of_cultivation,
+            rainfed_rate_per_qtls :data.rainfed_rate_per_qtls,
+            rainfed_gross_income :data.rainfed_gross_income,
+            rainfed_net_income :data.rainfed_net_income,
+            irrigated_area :data.irrigated_area,
+            irrigated_yield :data.irrigated_yield,
+            irrigated_cost_of_cultivation :data.irrigated_cost_of_cultivation,
+            irrigated_rate_per_qtls :data.irrigated_rate_per_qtls,
+            irrigated_gross_income :data.irrigated_gross_income,
+            irrigated_net_income :data.irrigated_net_income,
+            headId :data.headId
+      })
+    }))
+    res.status(200).json({
+      success:true,
+      data:result
+    })
+  } catch (error) {
+    console.error("error in bulkInsertionCropsRabi fucntion",error)
+    res.status(400).json({
+      success:false,
+      data:error
+    })
+  }
+}
 
 const updateIncomeRabhi = async (req, res) => {
     const { id } = req.params;
@@ -49,4 +82,4 @@ const updateIncomeRabhi = async (req, res) => {
   };
 
 
-module.exports = {insertIncomeCropsRabhi,updateIncomeRabhi}
+module.exports = {insertIncomeCropsRabhi,bulkInsertionCropsRabi,updateIncomeRabhi}

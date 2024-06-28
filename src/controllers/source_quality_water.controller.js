@@ -44,6 +44,38 @@ const getSourceQualityWaterDetails = async (req,res) =>{
             data: newSourceQualityWater,
         });
     };
+
+    const bulkInsertionSourceQuality = async(req,res) => {
+      try {
+        const sourceQualityRows = req.body.rows
+        const result = await Promise.all(sourceQualityRows.map(async(data)=>{
+          return await SourceQualityWaterDetails.create({
+            headId: data.headId,
+            water_source: data.water_source,
+            driedupwell_or_borewell_nos: data.driedupwell_or_borewell_nos,
+            functioning_well_or_borewell_nos: data.functioning_well_or_borewell_nos,
+            present_water_level: data.present_water_level,
+            yield_from_borewell: data.yield_from_borewell,
+            irrigated_agri_kharif: data.irrigated_agri_kharif,
+            irrigated_agri_rabhi: data.irrigated_agri_rabhi,
+            irrigated_agri_summer: data.irrigated_agri_summer,
+            other_corps: data.other_corps,
+            horticulture: data.horticulture,
+            water_level: data.water_level
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:result
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionSourceQuality function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateSourceQualityWater = async (req, res) => {
@@ -64,4 +96,4 @@ const getSourceQualityWaterDetails = async (req,res) =>{
       };
 
 
-module.exports = {getSourceQualityWaterDetails,insertSourceQualityWater,updateSourceQualityWater}
+module.exports = {getSourceQualityWaterDetails,bulkInsertionSourceQuality,insertSourceQualityWater,updateSourceQualityWater}

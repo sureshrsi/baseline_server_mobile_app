@@ -20,7 +20,7 @@ const getLoanParticularDetails = async (req,res) =>{
     } 
 
 
-    const insertLoanParticular = async (req, res, next) => {
+    const insertLoanParticular = async (req, res) => {
     
     
          // Insert each row into the database using Sequelize
@@ -46,6 +46,39 @@ const getLoanParticularDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionLoanParticulars = async(req,res) => {
+      console.log("^^^^^^^^^^^^LOAN PARTICULARS^^^^^^^^^^^^^^^^^^^")
+      try {
+        const loanParticularsRows = req.body.rows
+        const loanParticularsRowsData = await Promise.all(loanParticularsRows.map(async(data)=>{
+          return await LoanParticularDetails.create({
+            headId: data.headId,
+            loan_particular: data.loan_particular,
+            source_bank: data.source_bank,
+            source_money_lender: data.source_money_lender,
+            source_dealer: data.source_dealer,
+            source_fellow_farmer : data.source_fellow_farmer,
+            source_shg: data.source_shg,
+            source_total: data.source_total,
+            purpose_agriculture: data.purpose_agriculture,
+            purpose_consumtion: data.purpose_consumtion,
+            education: data.education,
+            marriage: data.marriage,
+            others: data.others, 
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:loanParticularsRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionLoanParticulars function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     const updateLoanParticular = async (req, res) => {
         const { id } = req.params;
@@ -65,4 +98,4 @@ const getLoanParticularDetails = async (req,res) =>{
       };
 
 
-module.exports = {getLoanParticularDetails,insertLoanParticular,updateLoanParticular}
+module.exports = {getLoanParticularDetails,bulkInsertionLoanParticulars,insertLoanParticular,updateLoanParticular}

@@ -5,5 +5,6 @@ const router = express.Router();
 router.get('/awarewatershedstatusdetails',AwareWatershedSoilLandStatusController.getAwareWatershedSoilLandStatusDetails)
 router.post('/insertawarewatershedstatus',AwareWatershedSoilLandStatusController.insertAwareWatershedSoilLandStatusDetails)
 router.put('/updateawarewatershedstatus/:id',AwareWatershedSoilLandStatusController.updateAwareWatershedSoilLandStatusDetails)
+router.post('/awarewatershed',AwareWatershedSoilLandStatusController.bulkInsertionAwareWatershedStatus)
 
 module.exports = router

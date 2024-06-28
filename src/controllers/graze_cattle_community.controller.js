@@ -36,6 +36,31 @@ const getGrazeCattleCommunityDetails = async (req,res) =>{
             data: newFodderFuel,
         });
     };
+
+    const grazeCattleDetails = async(req,res) => {
+      console.log("^^^GRAZE^^^^^^^^^^^^")
+      try {
+        const cattleDetailsRows = req.body.rows
+        const cattleDetailsRowsData = await Promise.all(cattleDetailsRows.map(async(details)=>{
+          return await GrazeCattleCommunityDetails.create({
+            headId: req.body.headId,
+            grazing_of_cattle_or_animal: details.grazing_of_cattle_or_animal,
+            number_of_animals: details.number_of_animals,
+            how_many_days_in_the_year: details.how_many_days_in_the_year
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:cattleDetailsRowsData
+        })
+      } catch (error) {
+        console.error("error in grazeCattleDetails function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateGrazeCattleCommunityDetails = async (req, res) => {
@@ -56,4 +81,4 @@ const getGrazeCattleCommunityDetails = async (req,res) =>{
       };
 
 
-module.exports = {getGrazeCattleCommunityDetails,insertGrazeCattleCommunityDetails,updateGrazeCattleCommunityDetails}
+module.exports = {getGrazeCattleCommunityDetails,grazeCattleDetails,insertGrazeCattleCommunityDetails,updateGrazeCattleCommunityDetails}
