@@ -2,6 +2,12 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const IncomeKharif = sequelize.define('incomecrops', {
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER
+  },
     headId: {
       type: DataTypes.STRING,
     },
@@ -49,7 +55,15 @@ const IncomeKharif = sequelize.define('incomecrops', {
   });
 
   const landparticulars = sequelize.define('landparticulars', {
-    
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
+      headId: {
+        type: DataTypes.STRING,
+      },
     cultivated_area: {
       type: DataTypes.STRING,
     },

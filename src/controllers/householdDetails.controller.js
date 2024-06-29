@@ -4,6 +4,7 @@ const householdmembers = require('../models/householdDetails.model');
 async function insertHouseholdDetails(req,res){
     try {
         const result = await householdmembers.create({
+            headId: req.body.headId,
             name_of_the_family_member:req.body.name_of_the_family_member,
             relationship_with_head:req.body.relationship_with_head,
             disability:req.body.disability,
@@ -21,4 +22,22 @@ async function insertHouseholdDetails(req,res){
     }
 }
 
-module.exports = {insertHouseholdDetails}
+const updateHouseHoldFamilyMembers = async (req, res) => {
+    console.log('updating happening')
+    const { id } = req.params;
+    try {
+      const [updated] = await householdmembers.update(req.body, {       
+        where: { id: id },
+      });
+      if (updated) {
+        const updatedhouseHold= await householdmembers.findOne({ where: { id: id } });
+        res.status(200).json(updatedhouseHold);
+      } else {
+        res.status(404).json({ message: 'Record not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+module.exports = {insertHouseholdDetails,updateHouseHoldFamilyMembers}

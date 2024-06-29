@@ -2,6 +2,15 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const householdmembers = sequelize.define('householdmembers', {
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER
+      },
+        headId: {
+          type: DataTypes.STRING,
+        },
     name_of_the_family_member: {
         type: DataTypes.STRING,
         allowNull: true,
