@@ -41,8 +41,6 @@ const updateHouseHoldFamilyMembers = async (req, res) => {
     }
   };
 
-module.exports = {insertHouseholdDetails,updateHouseHoldFamilyMembers}
-
 async function bulkInsertionHouseholdMembers(req,res){
     try {
         const householdMembersRows = req.body.rows
@@ -71,5 +69,5 @@ async function bulkInsertionHouseholdMembers(req,res){
         })
     }
 }
-module.exports = {insertHouseholdDetails,bulkInsertionHouseholdMembers}
+module.exports = {insertHouseholdDetails,bulkInsertionHouseholdMembers,updateHouseHoldFamilyMembers}
 

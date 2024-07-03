@@ -185,7 +185,5 @@ const updateIncomeKharif = async (req, res) => {
 
 
 
-module.exports = {createIncomeCrops,updateIncomeKharif,landParticularsData,updateLandParticulars}
-
-module.exports = {createIncomeCrops,bulkInsertionLandParticulars,updateIncomeKharif,bulkInsertionIncomeCrops,landParticularsData}
+module.exports = {createIncomeCrops,bulkInsertionLandParticulars,updateIncomeKharif,bulkInsertionIncomeCrops,landParticularsData,updateLandParticulars}
 
