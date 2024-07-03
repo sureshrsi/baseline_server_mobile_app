@@ -111,7 +111,7 @@ const SelectGeneralInfo = `SELECT t1.id as id,
                             t2.habitation_id,
                             t1.head_of_the_family as head_of_the_family,
                             t1.household_door_no as household_door_no,
-                            t1.conatact_number as contact_number,
+                            t1.conatact_number,
                             t1.aadhar_number,t1.job_card_no,
                             t1.economic_status,
                             t1.occupation,
@@ -293,44 +293,6 @@ const updateHouseHoldFamilyMembers = async (req,res) =>{
    
 }
 
-const updateLandParticulars = async (req,res) =>{
-    try{
-        const { rows} = req.body;
-        console.log('getting data from frontend',rows)
-        const queries = rows.map(row => {
-            return sequelize.query(
-              `UPDATE landparticulars 
-               SET 
-                 cultivated_area = :cultivated_area, 
-                 rainfed = :rainfed, 
-                 irrigated = :irrigated, 
-                 total = :total, 
-                 "Type_of_ownership" = :Type_of_ownership 
-               WHERE 
-                 id = :id`,
-              {
-                replacements: {
-                    cultivated_area: row.cultivated_area,
-                    rainfed: row.rainfed,
-                    irrigated: row.irrigated,
-                    total: row.total,
-                    Type_of_ownership: row.Type_of_ownership,
-                    id: row.id
-                },
-                type: sequelize.QueryTypes.UPDATE,
-              }
-            );
-          });
-           // Execute all queries
-  await Promise.all(queries);
-    }
-    catch (error) {
-        console.error('Error at update Household members:', error);
-        res.status(500).json({ error: error.message });
-    }
-   
-}
-
 
        
 const updateItem = async (req, res) => {
@@ -365,7 +327,6 @@ module.exports = { searchItems,
     getHouseHoldInfo,
     updateHouseHoldFamilyMembers,
     getLandPariculars,
-    updateLandParticulars,
     getIncomeFromKharif,
     getIncomeFromRabhi,
     getLiveStockDetails,

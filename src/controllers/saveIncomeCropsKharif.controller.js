@@ -1,5 +1,6 @@
 const sequelize = require('../config/database');
-const IncomeKharif = require('../models/incomeCropsKharif.model');
+const {IncomeKharif,landparticulars} = require('../models/incomeCropsKharif.model');
+
 
 const createIncomeCrops = async (req, res, next) => {
     
@@ -7,7 +8,7 @@ const createIncomeCrops = async (req, res, next) => {
     console.log(rows,'**************************');
 
      // Insert each row into the database using Sequelize
-     const newHouseholder = await IncomeKharif.IncomeKharif.create({
+     const newHouseholder = await IncomeKharif.create({
             crop_grown : req.body.crop_grown,
             rainfed_area : req.body.rainfed_area,
             rainfed_yield : req.body.rainfed_yield,
@@ -66,7 +67,8 @@ const bulkInsertionIncomeCrops = async(req,res) =>{
 
 async function landParticularsData(req,res){
   try {
-    const result = await IncomeKharif.landparticulars.create({
+    const result = await landparticulars.create({
+      headId : req.body.headId,
       cultivated_area:req.body.cultivated_area,
       rainfed:req.body.rainfed,
       irrigated:req.body.irrigated,
@@ -110,6 +112,60 @@ const bulkInsertionLandParticulars = async(req,res) =>{
   }
 }
 
+// const updateLandParticulars = async (req,res) =>{
+//   try{
+//       const { rows} = req.body;
+//       console.log('getting data from frontend',rows)
+//       const queries = rows.map(row => {
+//           return sequelize.query(
+//             `UPDATE landparticulars 
+//              SET 
+//                cultivated_area = :cultivated_area, 
+//                rainfed = :rainfed, 
+//                irrigated = :irrigated, 
+//                total = :total, 
+//                "Type_of_ownership" = :Type_of_ownership 
+//              WHERE 
+//                id = :id`,
+//             {
+//               replacements: {
+//                   cultivated_area: row.cultivated_area,
+//                   rainfed: row.rainfed,
+//                   irrigated: row.irrigated,
+//                   total: row.total,
+//                   Type_of_ownership: row.Type_of_ownership,
+//                   id: row.id
+//               },
+//               type: sequelize.QueryTypes.UPDATE,
+//             }
+//           );
+//         });
+//          // Execute all queries
+// await Promise.all(queries);
+//   }
+//   catch (error) {
+//       console.error('Error at update Household members:', error);
+//       res.status(500).json({ error: error.message });
+//   }
+ 
+// }
+const updateLandParticulars = async (req,res) =>{
+const { id } = req.params;
+    try {
+      const [updated] = await landparticulars.update(req.body, {
+        where: { id: id },
+      });
+      if (updated) {
+        const updatedLandParticular = await landparticulars.findOne({ where: { id: id } });
+        res.status(200).json(updatedLandParticular);
+      } else {
+        res.status(404).json({ message: 'Record not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
 const updateIncomeKharif = async (req, res) => {
     const { id } = req.params;
     try {
@@ -128,4 +184,8 @@ const updateIncomeKharif = async (req, res) => {
   };
 
 
+
+module.exports = {createIncomeCrops,updateIncomeKharif,landParticularsData,updateLandParticulars}
+
 module.exports = {createIncomeCrops,bulkInsertionLandParticulars,updateIncomeKharif,bulkInsertionIncomeCrops,landParticularsData}
+

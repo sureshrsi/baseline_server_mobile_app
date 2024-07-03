@@ -14,6 +14,6 @@ router.get('/incomecropsfromrabhi',aadharController.getIncomeFromRabhi)
 router.get('/livestockdetails',aadharController.getLiveStockDetails)
 router.get('/migrationdetails',aadharController.getMigrationDetails)
 router.put('/updatehouseholdmember',aadharController.updateHouseHoldFamilyMembers)
-router.put('/updatelandparticular',aadharController.updateLandParticulars)
+
 
 module.exports = router;
