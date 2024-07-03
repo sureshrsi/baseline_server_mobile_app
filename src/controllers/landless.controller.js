@@ -38,6 +38,30 @@ const getLandLessDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionLandless = async(req,res) => {
+      try {
+        const landLessRows = req.body.rows
+        const landLessRowsData = await Promise.all(landLessRows.map(async(data)=>{
+          return await LandLessDetails.create({
+            headId: data.headId,
+            name_of_the_scheme_or_project: data.name_of_the_scheme_or_project,
+            mandays: data.mandays,
+            wage_per_day: data.wage_per_day,
+            income: data.income,
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:landLessRowsData
+        })
+      } catch (error) {
+        console.log("error in bulkInsertionLandless function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     const updateLandLess = async (req, res) => {
         const { id } = req.params;
@@ -77,4 +101,4 @@ const getLandLessDetails = async (req,res) =>{
 //     }
 // };
 
-module.exports = {getLandLessDetails,insertLandLess,updateLandLess}
+module.exports = {getLandLessDetails,bulkInsertionLandless,insertLandLess,updateLandLess}

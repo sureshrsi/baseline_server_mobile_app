@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/manurechemicaldetails',createManureChemicalController.getManureChemicalDetails)
 router.post('/insertmanurechemical',createManureChemicalController.insertManureChemical)
 router.put('/updatemanurechemical/:id',createManureChemicalController.updateManureChemical)
-
+router.post('/bulkinsertionmanurechemical',createManureChemicalController.bulkInsertionManureChemical)
 module.exports = router

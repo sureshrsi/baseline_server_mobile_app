@@ -35,6 +35,30 @@ const getAwarenessAdoptionTechnologyDetails = async (req,res) =>{
             data: newAwarenessAdoptionTechnology,
         });
     };
+
+    const bulkInsertionAwarenessAdoption = async(req,res) => {
+      try {
+        const awarenessAdoptionRows = req.body.rows
+      const awarenessAdoptionData = await Promise.all(awarenessAdoptionRows.map(async(awareness)=>
+        {
+        return await AwarenessAdoptionTechnologyDetails.create({
+          headId: awareness.headId,
+          technology: awareness.technology,
+          source_of_information: awareness.source_of_information
+        });
+      }));
+      res.status(200).json({
+        success:true,
+        data:awarenessAdoptionData
+      })
+      } catch (error) {
+        console.error("error in bulkInsertionAwarenessAdoption function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateAwarenessAdoptionTechnologyDetails = async (req, res) => {
@@ -55,4 +79,4 @@ const getAwarenessAdoptionTechnologyDetails = async (req,res) =>{
       };
 
 
-module.exports = {getAwarenessAdoptionTechnologyDetails,insertAwarenessAdoptionTechnologyDetails,updateAwarenessAdoptionTechnologyDetails}
+module.exports = {getAwarenessAdoptionTechnologyDetails,bulkInsertionAwarenessAdoption,insertAwarenessAdoptionTechnologyDetails,updateAwarenessAdoptionTechnologyDetails}

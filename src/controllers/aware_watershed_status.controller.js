@@ -35,6 +35,25 @@ const getAwareWatershedSoilLandStatusDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionAwareWatershedStatus = async(req,res) =>
+      {
+        try {
+          const awareWatershedRows = req.body.rows
+          const awareWatershed = await Promise.all(awareWatershedRows.map(async(watershed)=>
+            {
+              return await AwareWatershedSoilLandStatusDetails.create({
+                headId: watershed.headId,
+                status: watershed.status
+              });
+          }));
+          res.status(200).json({
+            success:true,
+            data:awareWatershed
+          })
+        } catch (error) {
+          console.error("error in bulkInsertionAwareWatershedStatus function",error)
+        }
+      };
     
     const updateAwareWatershedSoilLandStatusDetails = async (req, res) => {
         const { id } = req.params;
@@ -55,4 +74,4 @@ const getAwareWatershedSoilLandStatusDetails = async (req,res) =>{
       };
 
 
-module.exports = {getAwareWatershedSoilLandStatusDetails,insertAwareWatershedSoilLandStatusDetails,updateAwareWatershedSoilLandStatusDetails}
+module.exports = {getAwareWatershedSoilLandStatusDetails,bulkInsertionAwareWatershedStatus,insertAwareWatershedSoilLandStatusDetails,updateAwareWatershedSoilLandStatusDetails}

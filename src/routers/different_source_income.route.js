@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/differentsourceincomedetails',createDifferentSourceIncomeController.getDifferentSourceIncomeDetails)
 router.post('/insertdifferentsourceincome',createDifferentSourceIncomeController.insertDifferentSourceIncome)
 router.put('/updatedifferentsourceincome/:id',createDifferentSourceIncomeController.updateDifferentSourceIncome)
-
+router.post('/sourceofincome',createDifferentSourceIncomeController.differentSourcesIncome)
 module.exports = router

@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/familyexpendituredetails',createFamilyExpController.getFamilyExpenditureDetails)
 router.post('/insertfamilyexpenditure',createFamilyExpController.insertFamilyExpenditure)
 router.put('/updatefamilyexpenditure/:id',createFamilyExpController.updateFamilyExpenditure)
-
+router.post('/bulkinsertionfamily',createFamilyExpController.bulkInsertionFamilyExpenditure)
 module.exports = router

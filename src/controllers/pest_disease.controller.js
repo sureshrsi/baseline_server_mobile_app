@@ -41,6 +41,33 @@ const getPestDiseaseDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionPestDisease = async(req,res) =>{
+      try {
+        const pestDiseaseRows = req.body.rows
+        const pestDiseaseRowsData = await Promise.all(pestDiseaseRows.map(async(data)=>{
+          return await PestDiseaseDetails.create({
+            headId: data.headId,
+            crops: data.crops,
+            name_of_the_pest_disease: data.name_of_the_pest_disease,
+            control_measures_biological: data.control_measures_biological,
+            control_measures_chemical: data.control_measures_chemical,
+            control_measures_others: data.control_measures_others,
+            amount_spent_material: data.amount_spent_material,
+            amount_spent_wages: data.amount_spent_wages
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:pestDiseaseRowsData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionPestDisease function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     const updatePestDiSease = async (req, res) => {
         const { id } = req.params;
@@ -60,4 +87,4 @@ const getPestDiseaseDetails = async (req,res) =>{
       };
 
 
-module.exports = {getPestDiseaseDetails,insertPestDisease,updatePestDiSease}
+module.exports = {getPestDiseaseDetails,bulkInsertionPestDisease,insertPestDisease,updatePestDiSease}

@@ -38,6 +38,29 @@ const getParticipationCommunityProgramDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionCommunityProgram = async(req,res) =>{
+      try {
+        const programRows = req.body.rows
+        const programRowsData = await Promise.all(programRows.map(async(data)=>{
+          return await ParticipationCommunityProgramDetails.create({
+            headId: data.headId,
+            name_of_the_community_program: data.name_of_the_community_program,
+            tick_mark_appropriate: data.tick_mark_appropriate,
+            yes_or_no: data.yes_or_no
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:programRowsData
+        })
+      } catch (error) {
+        console.error("error in participateCommunityProgram fucntion",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     const updateParticipationCommunityProgramDetails = async (req, res) => {
         const { id } = req.params;
@@ -57,4 +80,4 @@ const getParticipationCommunityProgramDetails = async (req,res) =>{
       };
 
 
-module.exports = {getParticipationCommunityProgramDetails,insertParticipationCommunityProgramDetails,updateParticipationCommunityProgramDetails}
+module.exports = {getParticipationCommunityProgramDetails,bulkInsertionCommunityProgram,insertParticipationCommunityProgramDetails,updateParticipationCommunityProgramDetails}

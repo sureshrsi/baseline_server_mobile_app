@@ -37,6 +37,32 @@ const getFodderFeedDetails = async (req,res) =>{
             data: newFodderFeed,
         });
     };
+
+    const bulkInsertionFodderFeed = async(req,res) => {
+      console.log("^^^^^^^^^^^^^FODDER^^^^^^^^^^^^^^^^^")
+      try {
+        const fodderFeedRows = req.body.rows
+        const fodderFeedData = await Promise.all(fodderFeedRows.map(async(fodder)=>{
+          return await FodderFeedDetails.create({
+            headId: fodder.headId,
+            fodderfeed_item: fodder.fodderfeed_item,
+            fodderfeed_units : fodder.fodderfeed_units,
+            fodderfeed_area_quantity: fodder.fodderfeed_area_quantity,
+            fodderfeed_production: fodder.fodderfeed_production
+          })
+        }))
+        res.status(200).json({
+          success:true,
+          data:fodderFeedData
+        })
+      } catch (error) {
+        console.error("error in bulkInsertionFodderFeed function",error)
+        res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     
     const updateFodderFeedDetails = async (req, res) => {
@@ -57,4 +83,4 @@ const getFodderFeedDetails = async (req,res) =>{
       };
 
 
-module.exports = {getFodderFeedDetails,insertFodderFeedDetails,updateFodderFeedDetails}
+module.exports = {getFodderFeedDetails,bulkInsertionFodderFeed,insertFodderFeedDetails,updateFodderFeedDetails}

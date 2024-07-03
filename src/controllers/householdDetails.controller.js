@@ -22,6 +22,7 @@ async function insertHouseholdDetails(req,res){
     }
 }
 
+
 const updateHouseHoldFamilyMembers = async (req, res) => {
     console.log('updating happening')
     const { id } = req.params;
@@ -41,3 +42,34 @@ const updateHouseHoldFamilyMembers = async (req, res) => {
   };
 
 module.exports = {insertHouseholdDetails,updateHouseHoldFamilyMembers}
+
+async function bulkInsertionHouseholdMembers(req,res){
+    try {
+        const householdMembersRows = req.body.rows
+        const householdAssetRowsData = await Promise.all(householdMembersRows.map(async(members)=>{
+            return await householdmembers.create({
+                name_of_the_family_member:members.name_of_the_family_member,
+                relationship_with_head:members.relationship_with_head,
+                disability:members.disability,
+                gender:members.gender,
+                age:members.age,
+                level_of_education:members.level_of_education,
+                occupation:members.occupation,
+                membership:members.membership,
+                annual_gross_income:members.annual_gross_income
+            })
+        }))
+        res.status(200).json({
+            sucess:true,
+            data:householdAssetRowsData
+        })
+    } catch (error) {
+        console.error("error in bulkInsertionHouseholdMembers fucntion",error)
+        req.status(400).json({
+            success:false,
+            data:error
+        })
+    }
+}
+module.exports = {insertHouseholdDetails,bulkInsertionHouseholdMembers}
+

@@ -5,5 +5,5 @@ const router = express.Router();
 router.get('/membershipdetails',createMembershipController.getMembershipDetails)
 router.post('/insertmembership',createMembershipController.insertMembershipDetails)
 router.put('/updatemembership/:id',createMembershipController.updateMembershipDetails)
-
+router.post('/bulkinsertionmembership',createMembershipController.bulkInsertionMambership)
 module.exports = router

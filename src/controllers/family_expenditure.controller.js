@@ -36,6 +36,29 @@ const getFamilyExpenditureDetails = async (req,res) =>{
         });
     };
     
+    const bulkInsertionFamilyExpenditure = async(req,res) => {
+      try {
+        const familyExpenditureRows = req.body.rows
+        const familyExpendituresRowsData = await Promise.all(familyExpenditureRows.map(async(expenditure)=>{
+          return await FamilyExpenditureDetails.create({
+            headId: expenditure.headId,
+            items: expenditure.items,
+            expenditure_per_last_year: expenditure.expenditure_per_last_year
+          })
+        }
+       ))
+        res.status(200).json({
+        success:true,
+        data:familyExpendituresRowsData
+       })
+      } catch (error) {
+        console.error("error in bulkInsertionFamilyExpenditure function",error)
+         res.status(400).json({
+          success:false,
+          data:error
+        })
+      }
+    }
     
     const updateFamilyExpenditure = async (req, res) => {
         const { id } = req.params;
@@ -55,4 +78,4 @@ const getFamilyExpenditureDetails = async (req,res) =>{
       };
 
 
-module.exports = {getFamilyExpenditureDetails,insertFamilyExpenditure,updateFamilyExpenditure}
+module.exports = {getFamilyExpenditureDetails,bulkInsertionFamilyExpenditure,insertFamilyExpenditure,updateFamilyExpenditure}
