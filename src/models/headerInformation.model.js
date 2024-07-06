@@ -46,6 +46,10 @@ const generalinfo = sequelize.define('generalinfo', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    total_holding_area: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     type_of_house: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -82,6 +86,15 @@ const generalinfo = sequelize.define('generalinfo', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    latitude: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    longitude: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+
 }, {
     tableName: 'generalinfo' // Ensure table name matches the database
 });

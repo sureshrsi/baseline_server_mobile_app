@@ -41,7 +41,7 @@ const SourceQualityWaterDetails = sequelize.define('source_quality_water', {
       horticulture : {
         type: DataTypes.STRING
       },
-      water_level : {
+      water_quality : {
         type: DataTypes.STRING
       },
       createdAt: {

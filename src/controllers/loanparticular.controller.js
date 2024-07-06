@@ -32,6 +32,7 @@ const getLoanParticularDetails = async (req,res) =>{
             source_dealer: req.body.source_dealer,
             source_fellow_farmer : req.body.source_fellow_farmer,
             source_shg: req.body.source_shg,
+            other_source : req.body.other_source,
             source_total: req.body.source_total,
             purpose_agriculture: req.body.purpose_agriculture,
             purpose_consumtion: req.body.purpose_consumtion,

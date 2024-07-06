@@ -71,7 +71,9 @@ t1.social_status as socialstatus,
 t1.total_rainfed_area,
 t1.total_irrigated_area,
 t1.type_of_house,
-t1.own_or_rented
+t1.own_or_rented,
+t1."createdAt",
+t1."updatedAt"
  FROM 
 generalinfo t1
 INNER JOIN habitation t2 ON t1."habitationId"= t2.id 
@@ -108,6 +110,10 @@ const SelectGeneralInfo = `SELECT t1.id as id,
                             t3.micro_watershed_name,
                             t3.micro_watershed_id,
                             t2.habitation_name,
+                            t1.name_of_habitation,
+                            t1.name_of_the_micro_watershed,
+                            t1.name_of_the_grampanchayat,
+                            t1.name_of_project,
                             t2.habitation_id,
                             t1.head_of_the_family as head_of_the_family,
                             t1.household_door_no as household_door_no,
@@ -121,6 +127,7 @@ const SelectGeneralInfo = `SELECT t1.id as id,
                             t1.total_irrigated_area,
                             t1.type_of_house,
                             t1.own_or_rented
+                            t1.create
                              FROM 
                             generalinfo t1
                             INNER JOIN habitation t2 ON t1."habitationId"= t2.id 
