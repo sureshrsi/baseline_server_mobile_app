@@ -38,15 +38,13 @@ const getDateServeyorName_Details = async (req,res) =>{
 
     const bulkInsertionConcludeDateName = async(req,res) =>{
       try {
-        const concludeDateNameRows = req.body.rows
-        const concludeDateNameData = await Promise.all(concludeDateNameRows.map(async(conclude)=>
-        {
-          return await DateServeyorName_Details.create({
-            headId: conclude.headId,
-            date: conclude.date,
-            serveyor_name: conclude.serveyor_name,
+        const {headId,date,serveyor_name} = req.body
+        const concludeDateNameData = await DateServeyorName_Details.create({
+            headId: headId,
+            date: date,
+            serveyor_name: serveyor_name
           })
-        }))
+          console.log("insertion date time conclude surveyor name",concludeDateNameData)
         res.status(200).json({
           success:true,
           data:concludeDateNameData

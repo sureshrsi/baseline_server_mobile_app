@@ -38,12 +38,12 @@ const getHorticultureDetails = async (req,res) =>{
 
     const bulkInsertionHorticulture = async(req,res) => {
       try {
-        const horticultureRows = req.body.rows
-        const horticultureRowsData = await Promise.all(horticultureRows.map(async(horticulture)=>{
+        const {id,rows} = req.body
+        const horticultureRowsData = await Promise.all(rows.map(async(horticulture)=>{
           return await HorticultureDetails.create({
-            headId: horticulture.headId,
-            horticulture_details: horticulture.horticulture_details,
-            horticulture_number: horticulture.horticulture_number
+            headId: id,
+            horticulture_details: horticulture.details,
+            horticulture_number: horticulture.numberofDetails
           })
         }))
         res.status(200).json({

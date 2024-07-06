@@ -38,13 +38,13 @@ const getAwarenessAdoptionTechnologyDetails = async (req,res) =>{
 
     const bulkInsertionAwarenessAdoption = async(req,res) => {
       try {
-        const awarenessAdoptionRows = req.body.rows
-      const awarenessAdoptionData = await Promise.all(awarenessAdoptionRows.map(async(awareness)=>
+        const {id , rows} = req.body
+        const awarenessAdoptionData = await Promise.all(rows.map(async(awareness)=>
         {
         return await AwarenessAdoptionTechnologyDetails.create({
-          headId: awareness.headId,
+          headId: id,
           technology: awareness.technology,
-          source_of_information: awareness.source_of_information
+          source_of_information: awareness.sourceInformation
         });
       }));
       res.status(200).json({

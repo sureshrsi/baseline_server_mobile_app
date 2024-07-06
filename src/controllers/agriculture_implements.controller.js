@@ -39,14 +39,13 @@ const getAgriImplementsDetails = async (req,res) =>{
     
     const bulkInsertionAgriImplements = async(req,res) => {
       try{
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-      const agriImplementRows = req.body.rows
-      const newBulkInsertion = await Promise.all(agriImplementRows.map(async(agri) => {
+      const {id , rows} = req.body
+      const newBulkInsertion = await Promise.all(rows.map(async(agri) => {
         return await AgriImplementsDetails.create({
-          headId: agri.headId,
-          implements: agri.implements,
-          no_of_implements: agri.no_of_implements,
-          implements_ownerd_hired: agri.implements_ownerd_hired
+          headId: id,
+          implements: agri.selectImplements,
+          no_of_implements: agri.numberofImplement,
+          implements_ownerd_hired: agri.ownedHired
         });
       }));
       res.status(200).json({

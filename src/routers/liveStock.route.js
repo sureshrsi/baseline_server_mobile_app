@@ -5,5 +5,4 @@ const router = express.Router();
 router.post('/insertLiveStock',createLiveStockController.insertLiveStock)
 router.put('/updateLiveStock/:id',createLiveStockController.updateLiveStock)
 router.post('/insertBulkLiveStock',createLiveStockController.bulkInsertionLivestock)
-router.post('/bulkinsertion',createLiveStockController.bulkInsertionLivestock)
 module.exports = router

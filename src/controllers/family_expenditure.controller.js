@@ -38,15 +38,16 @@ const getFamilyExpenditureDetails = async (req,res) =>{
     
     const bulkInsertionFamilyExpenditure = async(req,res) => {
       try {
-        const familyExpenditureRows = req.body.rows
-        const familyExpendituresRowsData = await Promise.all(familyExpenditureRows.map(async(expenditure)=>{
+        const {id, rows} = req.body
+        const familyExpendituresRowsData = await Promise.all(rows.map(async(expenditure)=>{
           return await FamilyExpenditureDetails.create({
-            headId: expenditure.headId,
+            headId: id,
             items: expenditure.items,
-            expenditure_per_last_year: expenditure.expenditure_per_last_year
+            expenditure_per_last_year: expenditure.total
           })
         }
        ))
+       console.log("family expenditure",familyExpendituresRowsData)
         res.status(200).json({
         success:true,
         data:familyExpendituresRowsData

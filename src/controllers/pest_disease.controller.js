@@ -43,19 +43,20 @@ const getPestDiseaseDetails = async (req,res) =>{
     
     const bulkInsertionPestDisease = async(req,res) =>{
       try {
-        const pestDiseaseRows = req.body.rows
-        const pestDiseaseRowsData = await Promise.all(pestDiseaseRows.map(async(data)=>{
+        const {id,rows} = req.body
+        const pestDiseaseRowsData = await Promise.all(rows.map(async(data)=>{
           return await PestDiseaseDetails.create({
-            headId: data.headId,
+            headId: id,
             crops: data.crops,
-            name_of_the_pest_disease: data.name_of_the_pest_disease,
-            control_measures_biological: data.control_measures_biological,
-            control_measures_chemical: data.control_measures_chemical,
-            control_measures_others: data.control_measures_others,
-            amount_spent_material: data.amount_spent_material,
-            amount_spent_wages: data.amount_spent_wages
+            name_of_the_pest_disease: data.nameOfThePest,
+            control_measures_biological: data.biological,
+            control_measures_chemical: data.chemical,
+            control_measures_others: data.others,
+            amount_spent_material: data.material,
+            amount_spent_wages: data.wages
           })
         }))
+        console.log("insert pest disease",pestDiseaseRowsData)
         res.status(200).json({
           success:true,
           data:pestDiseaseRowsData

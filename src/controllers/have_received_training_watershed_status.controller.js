@@ -38,13 +38,12 @@ const getReceivedWatershedSoilLandStatusDetails = async (req,res) =>{
 
     const bulkInsertionTrainingWatershed =async(req,res) =>{
       try {
-        const trainingWatershedRows = req.body.rows
-        const trainingWatershedRowsData = await Promise.all(trainingWatershedRows.map(async(training)=>{
-          return await ReceivedWatershedSoilLandStatusDetails.create({
-            headId: training.headId,
-            status: training.status
+        const {headId,status} = req.body
+        const trainingWatershedRowsData = await ReceivedWatershedSoilLandStatusDetails.create({
+            headId: headId,
+            status: status
           })
-        }))
+          console.log("received awareness programs",trainingWatershedRowsData)
         res.status(200).json({
           success:true,
           data:trainingWatershedRowsData

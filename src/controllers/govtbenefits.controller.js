@@ -39,10 +39,10 @@ const getGovtBenefitsDetails = async (req,res) =>{
 
     const bulkInsertionGovtBenefits = async(req,res) =>{
       try {
-        const govtBenefitsRows = req.body.rows
-        const govtBenefitsRowsData = await Promise.all(govtBenefitsRows.map(async(govt)=>{
+        const {id ,rows} = req.body
+        const govtBenefitsRowsData = await Promise.all(rows.map(async(govt)=>{
           return await GovtSchemes.create({
-            headId: govt.headId,
+            headId: id,
             name_of_familymember: govt.name_of_familymember,
             scheme_name: govt.scheme_name,
             amount: govt.amount

@@ -32,31 +32,32 @@ const insertIncomeCropsRabhi = async (req, res, next) => {
 
 const bulkInsertionCropsRabi = async(req,res) => {
   try {
-    const cropsRabiRows = req.body.rows
-    const result = await Promise.all(cropsRabiRows.map(async(data)=>{
+    const {id,rows} = req.body
+    const result = await Promise.all(rows.map(async(data)=>{
       return await IncomeRabhi.create({
-            crop_grown :data.crop_grown,
-            rainfed_area :data.rainfed_area,
-            rainfed_yield :data.rainfed_yield,
-            rainfed_cost_of_cultivation :data.rainfed_cost_of_cultivation,
-            rainfed_rate_per_qtls :data.rainfed_rate_per_qtls,
-            rainfed_gross_income :data.rainfed_gross_income,
-            rainfed_net_income :data.rainfed_net_income,
-            irrigated_area :data.irrigated_area,
-            irrigated_yield :data.irrigated_yield,
-            irrigated_cost_of_cultivation :data.irrigated_cost_of_cultivation,
-            irrigated_rate_per_qtls :data.irrigated_rate_per_qtls,
-            irrigated_gross_income :data.irrigated_gross_income,
-            irrigated_net_income :data.irrigated_net_income,
-            headId :data.headId
+            crop_grown :data.cropGrownRabhi,
+            rainfed_area :data.rainfedRabi,
+            rainfed_yield :data.rainfedYieldRabi,
+            rainfed_cost_of_cultivation :data.rainfedCostRabi,
+            rainfed_rate_per_qtls :data.rainfedPerQtlsRabi,
+            rainfed_gross_income :data.rainfedGrossIncomeRabi,
+            rainfed_net_income :data.rainfedNetIncomeRabi,
+            irrigated_area :data.irrigatedaAreaRabi,
+            irrigated_yield :data.irrigatedYieldRabi,
+            irrigated_cost_of_cultivation :data.irrigatedCoostofCultivationRabi,
+            irrigated_rate_per_qtls :data.irrigatedRatePerQtlsRabi,
+            irrigated_gross_income :data.irrigatedGrossIncomeRabi,
+            irrigated_net_income :data.irrigatedNetIncomeRabi,
+            headId :id
       })
     }))
+    console.log("income rabi",result)
     res.status(200).json({
       success:true,
       data:result
     })
   } catch (error) {
-    console.error("error in bulkInsertionCropsRabi fucntion",error)
+    console.error("error in bulkInsertionCropsRabi function",error)
     res.status(400).json({
       success:false,
       data:error

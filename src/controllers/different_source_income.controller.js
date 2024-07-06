@@ -38,13 +38,13 @@ const getDifferentSourceIncomeDetails = async (req,res) =>{
     
     const differentSourcesIncome = async(req,res) => {
       try {
-        const sourceIncomeRows = req.body.rows
-        const sourceIncomeData = await Promise.all(sourceIncomeRows.map(async(income)=>
+        const {id , rows} = req.body
+        const sourceIncomeData = await Promise.all(rows.map(async(income)=>
         {
           return await DifferentSourceIncomeDetails.create({
-            headId: income.headId,
+            headId: id,
             source: income.source,
-            income_during_the_year: income.income_during_the_year
+            income_during_the_year: income.income
           })
         }))
         res.status(200).json({

@@ -41,15 +41,15 @@ const getFodderFuelDetails = async (req,res) =>{
 
     const fodderFuelDetails = async(req,res) => {
       try {
-        const fodderFuelDetailsRows = req.body.rows
-        const fodderFuelDetailsData = await Promise.all(fodderFuelDetailsRows.map(async(details)=>{
+        const {id,rows} = req.body
+        const fodderFuelDetailsData = await Promise.all(rows.map(async(details)=>{
           return await FodderFuelDetails.create({
-            headId: details.headId,
-            foldder_details: details.foldder_details,
-            fodder_utilisation: details.fodder_utilisation,
-            cow_dung: details.cow_dung,
-            fire_wood: details.fire_wood,
-            agriculture_waste: details.agriculture_waste
+            headId: id,
+            foldder_details: details.details,
+            fodder_utilisation: details.fodderUtilization,
+            cow_dung: details.fireFuelCowDung,
+            fire_wood: details.firewood,
+            agriculture_waste: details.agriculturalWaste
           })
         }))
         res.status(200).json({

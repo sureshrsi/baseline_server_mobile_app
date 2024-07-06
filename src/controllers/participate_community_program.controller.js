@@ -40,15 +40,16 @@ const getParticipationCommunityProgramDetails = async (req,res) =>{
     
     const bulkInsertionCommunityProgram = async(req,res) =>{
       try {
-        const programRows = req.body.rows
-        const programRowsData = await Promise.all(programRows.map(async(data)=>{
+        const {id,rows} = req.body
+        const programRowsData = await Promise.all(rows.map(async(data)=>{
           return await ParticipationCommunityProgramDetails.create({
-            headId: data.headId,
-            name_of_the_community_program: data.name_of_the_community_program,
-            tick_mark_appropriate: data.tick_mark_appropriate,
-            yes_or_no: data.yes_or_no
+            headId: id,
+            name_of_the_community_program: data.nameofTheCommunityProgram,
+            tick_mark_appropriate: data.markTheAppropriate,
+            yes_or_no: data.awarenessprograms
           })
         }))
+        console.log("community program",programRowsData)
         res.status(200).json({
           success:true,
           data:programRowsData

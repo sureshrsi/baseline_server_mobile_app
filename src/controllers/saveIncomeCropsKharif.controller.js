@@ -33,25 +33,26 @@ const createIncomeCrops = async (req, res, next) => {
 
 const bulkInsertionIncomeCrops = async(req,res) =>{
   try {
-    const incomeCropsRows = req.body.rows
-    const result = await Promise.all(incomeCropsRows.map(async(data)=>{
-      return await IncomeKharif.IncomeKharif.create({
-        crop_grown : data.crop_grown,
-        rainfed_area : data.rainfed_area,
-        rainfed_yield : data.rainfed_yield,
-        rainfed_cost_of_cultivation : data.rainfed_cost_of_cultivation,
-        rainfed_rate_per_qtls : data.rainfed_rate_per_qtls,
-        rainfed_gross_income : data.rainfed_gross_income,
-        rainfed_net_income : data.rainfed_net_income,
-        irrigated_area : data.irrigated_area,
-        irrigated_yield : data.irrigated_yield,
-        irrigated_cost_of_cultivation : data.irrigated_cost_of_cultivation,
-        irrigated_rate_per_qtls : data.irrigated_rate_per_qtls,
-        irrigated_gross_income : data.irrigated_gross_income,
-        irrigated_net_income : data.irrigated_net_income,
-        headId : data.headId
+    const {id,rows} = req.body
+    const result = await Promise.all(rows.map(async(data)=>{
+      return await IncomeKharif.create({
+        crop_grown : data.cropGrownKharif,
+        rainfed_area : data.rainfedKharif,
+        rainfed_yield : data.rainfedYieldKharif,
+        rainfed_cost_of_cultivation : data.rainfedCostKharif,
+        rainfed_rate_per_qtls : data.rainfedPerQtlsKharif,
+        rainfed_gross_income : data.rainfedGrossIncomeKharif,
+        rainfed_net_income : data.rainfedNetIncomeKharif,
+        irrigated_area : data.irrigatedaAreaKharif,
+        irrigated_yield : data.irrigatedYieldKharif,
+        irrigated_cost_of_cultivation : data.irrigatedCoostofCultivationKharif,
+        irrigated_rate_per_qtls : data.irrigatedRatePerQtlsKharif,
+        irrigated_gross_income : data.irrigatedGrossIncomeKharif,
+        irrigated_net_income : data.irrigatedNetIncomeKharif,
+        headId : id
       })
     }))
+    console.log("income kharif",result)
     res.status(200).json({
       success:true,
       data:result
@@ -89,14 +90,15 @@ async function landParticularsData(req,res){
 
 const bulkInsertionLandParticulars = async(req,res) =>{
   try {
-    const landParticularsRows = req.body.rows
-    const result = await Promise.all(landParticularsRows.map(async(data)=>{
-      return await IncomeKharif.landparticulars.create({
-        cultivated_area:data.cultivated_area,
-        rainfed:data.rainfed,
-        irrigated:data.irrigated,
+    const {id,rows} = req.body
+    const result = await Promise.all(rows.map(async(data)=>{
+      return await landparticulars.create({
+        headId: id,
+        cultivated_area:data.cultivatedArea,
+        rainfed:data.rainfedArea,
+        irrigated:data.irrigatedArea,
         total:data.total,
-        Type_of_ownership:data.Type_of_ownership
+        Type_of_ownership:data.typeofOwnership
       })
     }))
     res.status(200).json({
