@@ -36,7 +36,7 @@ const getSourceQualityWaterDetails = async (req,res) =>{
             irrigated_agri_summer: req.body.irrigated_agri_summer,
             other_corps: req.body.other_corps,
             horticulture: req.body.horticulture,
-            water_level: req.body.water_level
+            water_quality: req.body.water_quality
             });
     
         return res.status(201).json({

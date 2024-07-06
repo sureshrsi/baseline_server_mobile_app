@@ -6,7 +6,7 @@ const getAnySchemePreviousProjectDetails = async (req,res) =>{
     try{
         const  {id}  = req.query;
         console.log('Search query name:', id);
-        const SelectAnySchemePreviousProjectDetails = `select * from public.membershipdetails t1 where t1."headId" = :value`
+        const SelectAnySchemePreviousProjectDetails = `select * from public.any_scheme_previous_project t1 where t1."headId" = :value`
         const replacements = { value: id }; // Adjust this as per your need
         const items = await sequelize.query(SelectAnySchemePreviousProjectDetails, {
                        replacements,
@@ -14,7 +14,7 @@ const getAnySchemePreviousProjectDetails = async (req,res) =>{
                      });
                      res.status(200).json(items);
                  } catch (error) {
-                   console.error('Error at  MembershipDetails   details executing query:', error);
+                   console.error('Error at  any_scheme_previous_project   details executing query:', error);
                    res.status(500).json({ error: 'Internal Server Error' });
                  }
     } 
