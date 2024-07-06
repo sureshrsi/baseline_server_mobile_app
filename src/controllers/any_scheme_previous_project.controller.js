@@ -39,14 +39,14 @@ const getAnySchemePreviousProjectDetails = async (req,res) =>{
 
     const bulkInsertionSchemeProjectDetails = async(req,res) => {
       try {
-        const bulkInsertionSchemeRows = req.body.rows
-        const insertionSchemeRows = await Promise.all(bulkInsertionSchemeRows.map(async(insertion)=>
+        const {id , rows} = req.body
+        const insertionSchemeRows = await Promise.all(rows.map(async(insertion)=>
         {
           return await AnySchemePreviousProjectDetails.create({
-            headId: insertion.headId,
-            name_of_the_scheme_or_project: insertion.name_of_the_scheme_or_project,
-            details_of_benefits_obtained:insertion.details_of_benefits_obtained,
-            value_of_the_benefit: insertion.value_of_the_benefit
+            headId: id,
+            name_of_the_scheme_or_project: insertion.nameofTheScheme,
+            details_of_benefits_obtained:insertion.detailsoftheBenfits,
+            value_of_the_benefit: insertion.valueoftheBenfits
           });
         }
         ));

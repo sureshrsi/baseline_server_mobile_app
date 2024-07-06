@@ -39,21 +39,22 @@ const getHouseholdAssetsDetails = async (req,res) =>{
     
     const bulkInsertionHouseholdAsset = async(req,res) => {
       try {
-        const householdAssetRows = req.body.rows
-        const householdAssetRowsData = await Promise.all(householdAssetRows.map(async(asset)=>{
+        const {id,rows} = req.body
+        const householdAssetRowsData = await Promise.all(rows.map(async(asset)=>{
           return await HouseholdAssetsDetails.create({
-            headId: asset.headId,
+            headId: id,
             assets: asset.assets,
             number: asset.number,
-            present_value: asset.present_value
+            present_value: asset.presentValue
           })
         }))
+        console.log("household asset",householdAssetRowsData)
         res.status(200).json({
           success:true,
           data:householdAssetRowsData
         })
       } catch (error) {
-        console.error("error in bulkInsertionHouseholdAsset fucntion",error)
+        console.error("error in bulkInsertionHouseholdAsset function",error)
         res.status(400).json({
           success:false,
           data:error

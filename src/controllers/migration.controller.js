@@ -27,20 +27,20 @@ const insertMigrationStatus = async (req, res, next) => {
 
 const bulkInsertionMigrationStatus = async(req,res) => {
   try {
-    const migrationStatusRows = req.body.rows
-    const migrationStatusRowsData = await Promise.all(migrationStatusRows.map(async(data)=>{
+    const {id,rows} = req.body
+    const migrationStatusRowsData = await Promise.all(rows.map(async(data)=>{
       return await MigrationStatus.create({
-        headId: data.headId,
-        name_of_the_person_migrating: data.name_of_the_person_migrating,
-            male_or_female: data.male_or_female,
-            no_of_person_migrating_per_year:
-            data.no_of_person_migrating_per_year,
-            reasons_for_migrating: data.reasons_for_migrating,
-            place_of_migrating: data.place_of_migrating,
-            occupation_during_migration: data.occupation_during_migration,
-            income_for_such_occupation: data.income_for_such_occupation,
+        headId:id,
+        name_of_the_person_migrating: data.nameOfThePerson,
+            male_or_female: data.gender,
+            no_of_person_migrating_per_year:data.noOfDaysMigratingPerYear,
+            reasons_for_migrating: data.reasonsForMigrating,
+            place_of_migrating: data.placeOfMigration,
+            occupation_during_migration: data.occupationDuringMigration,
+            income_for_such_occupation: data.incomeFromOccupation,
       })
     }))
+    console.log("migration status",migrationStatusRowsData)
     res.status(200).json({
       success:true,
       data:migrationStatusRowsData

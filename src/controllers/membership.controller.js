@@ -38,11 +38,11 @@ const getMembershipDetails = async (req,res) =>{
 
     const bulkInsertionMambership = async(req,res) => {
       try {
-        const membershipRows = req.body.rows
-        const membershipRowsData = await Promise.all(membershipRows.map(async(data)=>{
+        const {id,rows} = req.body
+        const membershipRowsData = await Promise.all(rows.map(async(data)=>{
           return await MembershipDetails.create({
-            headId: data.headId,
-            membershp_details: data.membershp_details,
+            headId: id,
+            membershp_details: data.sgh,
             number: data.number
           })
         }))

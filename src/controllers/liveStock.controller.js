@@ -44,23 +44,23 @@ const updateLiveStock = async (req, res) => {
 
   const bulkInsertionLivestock = async (req, res) => {
     try {
-      const livestockRows = req.body.rows; 
-     const insertedUsers = await Promise.all(livestockRows.map(async (liveStock) => {
+      const {id,rows} = req.body; 
+     const result = await Promise.all(rows.map(async (liveStock) => {
        return await LiveStockDetails.create({
-         // headId: liveStock.headId,
-         existing_no: liveStock.existing_no,
-         income_generated_during_last_year:
-         liveStock.income_generated_during_last_year,
-         milk_production:liveStock.milk_production,
-         milk_quantity_sold: liveStock.milk_quantity_sold,
-         mill_consumed: liveStock.mill_consumed,
-         name_of_the_animal: liveStock.name_of_the_animal,
-         value_of_animals: liveStock.value_of_animals,
+         headId: id,
+         existing_no: liveStock.existingNo,
+         income_generated_during_last_year:liveStock.incomeGeneratedDuringLastYear,
+         milk_production:liveStock.milkProductionLitresPerDay,
+         milk_quantity_sold: liveStock.quantitySoldByYear,
+         mill_consumed: liveStock.milkConsumedLitresPerday,
+         name_of_the_animal: liveStock.nameOfTheAnimal,
+         value_of_animals: liveStock.unitValue,
        });
      }));
+     console.log("livestock details",result)
      return res.status(201).json({
          status: 'success',
-         data: insertedUsers,
+         data: result,
      });
     } catch (error) {
       console.error("error in bulkInsertionLivestock function",error)

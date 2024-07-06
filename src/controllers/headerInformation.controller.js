@@ -120,6 +120,7 @@ async function getIndividualInformation(req,res){
         type_of_house:req.body.type_of_house,
         own_or_rented:req.body.own_or_rented
       })
+      console.log("RECORD INSERTED",result)
       return res.status(200).json(result)
     } catch (error) {
         console.error("error in getIndividualInformation function",error)

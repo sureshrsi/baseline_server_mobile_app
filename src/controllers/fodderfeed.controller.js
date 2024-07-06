@@ -39,16 +39,15 @@ const getFodderFeedDetails = async (req,res) =>{
     };
 
     const bulkInsertionFodderFeed = async(req,res) => {
-      console.log("^^^^^^^^^^^^^FODDER^^^^^^^^^^^^^^^^^")
       try {
-        const fodderFeedRows = req.body.rows
-        const fodderFeedData = await Promise.all(fodderFeedRows.map(async(fodder)=>{
+        const {id , rows} = req.body
+        const fodderFeedData = await Promise.all(rows.map(async(fodder)=>{
           return await FodderFeedDetails.create({
-            headId: fodder.headId,
-            fodderfeed_item: fodder.fodderfeed_item,
-            fodderfeed_units : fodder.fodderfeed_units,
-            fodderfeed_area_quantity: fodder.fodderfeed_area_quantity,
-            fodderfeed_production: fodder.fodderfeed_production
+            headId: id,
+            fodderfeed_item: fodder.item,
+            fodderfeed_units : fodder.unit,
+            fodderfeed_area_quantity: fodder.area,
+            fodderfeed_production: fodder.production
           })
         }))
         res.status(200).json({

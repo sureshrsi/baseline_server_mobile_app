@@ -40,15 +40,15 @@ const getDrinkingWaterDetails = async (req,res) =>{
 
     const bulkInsertionDrinkingWater = async(req,res) =>{
       try {
-        const drinkingWaterRows =req.body.rows
-        const drinkingWaterData = await Promise.all(drinkingWaterRows.map(async(water)=>
+        const {id , rows} =req.body
+        const drinkingWaterData = await Promise.all(rows.map(async(water)=>
         {
           return await DrinkingWaterDetails.create({
-            headId: water.headId,
-            drinkingwater_item: water.drinkingwater_item,
-            drinkingwater_units: water.drinkingwater_units,
-            drinking_quantity: water.drinking_quantity,
-            source_of_drinking_water: water.source_of_drinking_water
+            headId: id,
+            drinkingwater_item: water.drinkingwateritem,
+            drinkingwater_units: water.drinkingwaterunits,
+            drinking_quantity: water.litresPerDay,
+            source_of_drinking_water: water.sourceDrinkingWater
           })
         }))
         res.status(200).json({

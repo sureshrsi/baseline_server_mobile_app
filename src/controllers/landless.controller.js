@@ -40,16 +40,17 @@ const getLandLessDetails = async (req,res) =>{
     
     const bulkInsertionLandless = async(req,res) => {
       try {
-        const landLessRows = req.body.rows
-        const landLessRowsData = await Promise.all(landLessRows.map(async(data)=>{
+        const {id,rows} = req.body
+        const landLessRowsData = await Promise.all(rows.map(async(data)=>{
           return await LandLessDetails.create({
-            headId: data.headId,
-            name_of_the_scheme_or_project: data.name_of_the_scheme_or_project,
-            mandays: data.mandays,
-            wage_per_day: data.wage_per_day,
+            headId: id,
+            name_of_the_scheme_or_project: data.nameOfTheProject,
+            mandays: data.manDays,
+            wage_per_day: data.wageDays,
             income: data.income,
           })
         }))
+        console.log("landless data",landLessRowsData)
         res.status(200).json({
           success:true,
           data:landLessRowsData

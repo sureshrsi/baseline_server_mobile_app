@@ -43,19 +43,20 @@ const getManureChemicalDetails = async (req,res) =>{
 
     const bulkInsertionManureChemical = async(req,res) => {
       try {
-        const manureChemicalRows = req.body.rows
-        const manureChemicalRowsData = await Promise.all(manureChemicalRows.map(async(data)=>{
+        const {id,rows} = req.body
+        const manureChemicalRowsData = await Promise.all(rows.map(async(data)=>{
           return await ManureChemicalDetails.create({
-            headId: data.headId,
+            headId: id,
             crops: data.crops,
             organic: data.organic,
-            micro_nutrients: data.micro_nutrients,
-            chemical_N: data.chemical_N,
-            chemical_P: data.chemical_P,
-            chemical_K: data.chemical_K,
+            micro_nutrients: data.microNutrients,
+            chemical_N: data.N,
+            chemical_P: data.P,
+            chemical_K: data.K,
             cost: data.cost
           })
         }))
+        console.log("manure chemical",manureChemicalRowsData)
         res.status(200).json({
           success:true,
           data:manureChemicalRowsData

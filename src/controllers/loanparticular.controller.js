@@ -47,26 +47,26 @@ const getLoanParticularDetails = async (req,res) =>{
     };
     
     const bulkInsertionLoanParticulars = async(req,res) => {
-      console.log("^^^^^^^^^^^^LOAN PARTICULARS^^^^^^^^^^^^^^^^^^^")
       try {
-        const loanParticularsRows = req.body.rows
-        const loanParticularsRowsData = await Promise.all(loanParticularsRows.map(async(data)=>{
+        const {id,rows} = req.body
+        const loanParticularsRowsData = await Promise.all(rows.map(async(data)=>{
           return await LoanParticularDetails.create({
-            headId: data.headId,
-            loan_particular: data.loan_particular,
-            source_bank: data.source_bank,
-            source_money_lender: data.source_money_lender,
-            source_dealer: data.source_dealer,
-            source_fellow_farmer : data.source_fellow_farmer,
-            source_shg: data.source_shg,
-            source_total: data.source_total,
-            purpose_agriculture: data.purpose_agriculture,
-            purpose_consumtion: data.purpose_consumtion,
+            headId: id,
+            loan_particular: data.particulars,
+            source_bank: data.bank,
+            source_money_lender: data.moneyLender,
+            source_dealer: data.dealer,
+            source_fellow_farmer : data.fellowfarmer,
+            source_shg: data.shg,
+            source_total: data.total,
+            purpose_agriculture: data.agriculture,
+            purpose_consumtion: data.consumption,
             education: data.education,
             marriage: data.marriage,
             others: data.others, 
           })
         }))
+        console.log("loan particulars",loanParticularsRowsData)
         res.status(200).json({
           success:true,
           data:loanParticularsRowsData
