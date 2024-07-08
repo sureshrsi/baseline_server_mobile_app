@@ -45,6 +45,35 @@ const items = await sequelize.query(SelectProjectInfo, {
                       }
   }
 
+  // search for mirowatershed
+  const searchMicroByProject = async (req,res) =>{
+    try{
+const { query } = req.query;
+console.log('Search query name:', query);
+const SelectGeneralInfo = `select t1.dist_name,
+t2.wcc_name,
+t3.project_name,
+t4.micro_watershed_name,
+t4.micro_watershed_id,
+t4.id
+from public.district t1
+inner join public.wcc t2 on t1.dist_id = t2.dist_id
+inner join public.project t3 on t2.wcc_id=t3.wcc_id
+inner join public.microwatershed t4 on t3.project_id=t4.project_id
+where t4.project_id = :value`
+const replacements = { value: `${query}` }; // Adjust this as per your need
+const items = await sequelize.query(SelectGeneralInfo, {
+                              replacements,
+                              type: sequelize.QueryTypes.SELECT // Specify the type of query
+                            });
+                            res.status(200).json(items);
+                        } catch (error) {
+                          console.error('Error executing query:', error);
+                          res.status(500).json({ error: 'Internal Server Error' });
+                        }
+    }
+
+
   const searchAadharByProject = async (req,res) =>{
     try{
 const { query } = req.query;
@@ -81,7 +110,7 @@ INNER JOIN microwatershed t3 on t2.micro_watershed_id = t3.micro_watershed_id
 INNER JOIN public.project t4 on t3.project_id = t4.project_id
 INNER JOIN public.wcc t5 on t4.wcc_id = t5.wcc_id
 INNER JOIN public.district t6 on t5.dist_id= t6.dist_id
-where t4.project_id = :value`
+where t3.micro_watershed_id = :value`
 const replacements = { value: `${query}` }; // Adjust this as per your need
 const items = await sequelize.query(SelectGeneralInfo, {
                               replacements,
@@ -329,6 +358,7 @@ const updateItem = async (req, res) => {
 module.exports = { searchItems,
     updateItem ,
     searchProject,
+    searchMicroByProject,
     searchAadharByProject,
     searchName,
     getHouseHoldInfo,
