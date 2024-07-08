@@ -118,7 +118,9 @@ async function getIndividualInformation(req,res){
         total_rainfed_area:req.body.total_rainfed_area,
         total_irrigated_area:req.body.total_irrigated_area,
         type_of_house:req.body.type_of_house,
-        own_or_rented:req.body.own_or_rented
+        own_or_rented:req.body.own_or_rented,
+        latitude:req.body.latitude,
+        longitude:req.body.longitude
       })
       console.log("RECORD INSERTED",result)
       return res.status(200).json(result)
