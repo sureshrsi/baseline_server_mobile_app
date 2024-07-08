@@ -117,6 +117,7 @@ async function getIndividualInformation(req,res){
         social_status:req.body.social_status,
         total_rainfed_area:req.body.total_rainfed_area,
         total_irrigated_area:req.body.total_irrigated_area,
+        total_holding_area : req.body.total_holding_area,
         type_of_house:req.body.type_of_house,
         own_or_rented:req.body.own_or_rented,
         latitude:req.body.latitude,
